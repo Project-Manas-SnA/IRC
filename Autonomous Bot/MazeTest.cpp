@@ -52,7 +52,7 @@ int TurnTime = 280000;
 float circumference = 6.0 * 22 / 7.0;   //centimeter
 float cpr = 750.0;
 int pwm = 150;
-
+int i = 0;
 
 void Enc_A_Left(){
 	pos_l++;
@@ -117,7 +117,7 @@ void forward(){
 	softPwmWrite(pwmPinR,150);
 	usleep(1000000);
 	stop();
-	usleep(1000000);
+	usleep(100000);
 	updateCoOrdinate(1);
 }
 
@@ -136,19 +136,22 @@ void rightTurn(){
 }
 
 void leftTurn(){
+	cout<<i++;
 	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
-	usleep(TurnTime);
+	//usleep(TurnTime);
+	while(pos_l<325){continue;}
 	stop();
 	rotateAxis(-1);
 	distance();
 	Direction = --Direction ;
 	if (Direction == -1)
 		Direction = 3;
+	usleep(50000);
 }
 
 int ultrasonicLeft(){
@@ -235,10 +238,17 @@ void setup(){
 
 int main(){
 	setup();
-	rightTurn();
+	leftTurn();
 	cout<<"\n"<<distx<<"\t"<<disty;
-	forward();
-	cout<<distx<<"\t"<<disty;
+//	leftTurn();
+	cout<<"\n"<<distx<<"\t"<<disty;
+//	leftTurn();
+	cout<<"\n"<<distx<<"\t"<<disty;
+//	leftTurn();
+//	cout<<"\n"<<distx<<"\t"<<disty;
+//	leftTurn();
+	//forward();
+	//cout<<"\n"<<distx<<"\t"<<disty;
 	return 0;
 }
 
