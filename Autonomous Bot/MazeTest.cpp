@@ -53,7 +53,7 @@ int pwmVal_Left;
 int  distx=0,disty=0;
 int x_bar=1, y_bar=1;
 int x = 1 ,y = 1;
-int TurnTime = 1000000;
+int TurnTime = 650000;
 
 void Enc_A_Right(){
 	AState_Right = digitalRead(A_Right);
@@ -150,8 +150,8 @@ void forward(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,50);
-	softPwmWrite(pwmPinR,50);
+	softPwmWrite(pwmPinL,100);
+	softPwmWrite(pwmPinR,85);
 }
 
 void leftTurn(){
@@ -159,8 +159,8 @@ void leftTurn(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,50);
-	softPwmWrite(pwmPinR,50);
+	softPwmWrite(pwmPinL,100);
+	softPwmWrite(pwmPinR,100);
 	usleep(TurnTime);
 	stop();
 	rotateAxis(1);
@@ -172,8 +172,8 @@ void rightTurn(){
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,50);
-	softPwmWrite(pwmPinR,50);
+	softPwmWrite(pwmPinL,100);
+	softPwmWrite(pwmPinR,100);
 	usleep(TurnTime);
 	stop();
 	rotateAxis(-1);
@@ -274,11 +274,11 @@ void setup(){
 
 int main(){
 	setup();
-	forward();
-	usleep(1000000);
-	stop();
-	usleep(1000000);
-	leftTurn();
+//	forward();
+//	usleep(1000000);
+//	stop();
+//	usleep(1000000);
+	rightTurn();
 	usleep(1000000);
 	return 0;
 }
