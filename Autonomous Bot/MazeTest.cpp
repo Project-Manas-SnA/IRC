@@ -48,10 +48,10 @@ int x_bar=1, y_bar=1;
 int x = 1 ,y = 1;
 int Direction = 0;
 
-int TurnTime = 1000000;
+int TurnTime = 280000;
 float circumference = 6.0 * 22 / 7.0;   //centimeter
 float cpr = 750.0;
-int pwm = 100;
+int pwm = 150;
 
 
 void Enc_A_Left(){
@@ -79,12 +79,12 @@ void rotateAxis(int sign){
   y = y_bar;
 }
 
-void updateCoOrdinate(){
+void updateCoOrdinate(int i){
   if((x_bar == 1 && y_bar == -1 )|| (x_bar == -1 && y_bar == 1))
-   distx = distx + (distance() * y_bar);
+   distx = distx + i*(distance() * y_bar);
 
   else if((x_bar == 1 && y_bar == 1)|| (x_bar == -1 && y_bar == -1))
-    disty = disty + (distance() * x_bar);
+    disty = disty + i*(distance() * x_bar);
 }
 void stop(){
 	digitalWrite(dirPin_l1,LOW);
@@ -100,12 +100,14 @@ void backward(){
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm-30);
-	for(int i = 0; i<100000000; i++);
+	softPwmWrite(pwmPinL,150);
+	softPwmWrite(pwmPinR,150);
+	//for(int i = 0; i<100000000; i++);
+	usleep(1000000);
 	stop();
-	for(int i = 0; i<200000000; i++);
-	updateCoOrdinate();
+	//for(int i = 0; i<400000000; i++);
+	usleep(1000000);
+	updateCoOrdinate(-1);
 }
 
 void forward(){
@@ -113,12 +115,14 @@ void forward(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
-	for(int i = 0; i<100000000; i++);
+	softPwmWrite(pwmPinL,150);
+	softPwmWrite(pwmPinR,150);
+	//for(int i = 0; i<100000000; i++);
+	usleep(1000000);
 	stop();
-	for(int i = 0; i<200000000; i++);
-	updateCoOrdinate();
+	//for(int i = 0; i<400000000; i++);
+	usleep(1000000);
+	updateCoOrdinate(1);
 }
 
 void leftTurn(){
@@ -235,9 +239,11 @@ void setup(){
 
 int main(){
 	setup();
-	forward();
-	cout<<"\n"<<distx<<"\t"<<disty;
-	backward();
+//	forward();
+//	cout<<"\n"<<distx<<"\t"<<disty;
+//	backward();
+	rightTurn();
 	cout<<"\n"<<distx<<"\t"<<disty;
 	return 0;
 }
+
