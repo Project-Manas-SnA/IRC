@@ -27,10 +27,6 @@ using namespace std;
 #define ECHO_LEFT  25  //37
 
 #define  A_Left    4   //16
-#define  B_Left    5   //18
-
-#define  A_Right   1   //12
-#define  B_Right   16  //10
 
 #define  pwmPinR   0   //3
 #define  dirPin_r1 3   //7
@@ -42,11 +38,8 @@ using namespace std;
 
 /*GOBAL VARIABLE*/
 
-bool AState_Right,BState_Right;
-int pos_r = 0;
 int pwmVal_Right;
 
-bool AState_Left,BState_Left;
 int pos_l = 0;
 int pwmVal_Left;
 
@@ -61,20 +54,12 @@ float cpr = 7500.0;
 int pwm = 100;
 
 
-void Enc_A_Right(){
-	pos_r++;
-}
-
-void Enc_B_Right(){
-	pos_r++;
-}
-
 void Enc_A_Left(){
-	pos_l--;
+	pos_l++;
 }
 
 void Enc_B_Left(){
-	pos_l--;	
+	pos_l++;	
 }
 
 float leftDistance(){
@@ -83,27 +68,21 @@ float leftDistance(){
 	return l;
 }
 
-float rightDistance(){
-	float r = circumference * ( pos_r / cpr );;	//distance travelled in cm
-	pos_l = 0;
-	return r;
-}
-
 float distance(){
-	return (rightDistance() + leftDistance()) / 2;
+	return leftDistance();
 }
 
 void rotateAxis(int sign){
   x_bar = -y*sign;
   y_bar = x*sign;
   x = x_bar;
-  y = y_bar; 
+  y = y_bar;
 }
 
 void updateCoOrdinate(){
   if((x_bar == 1 && y_bar == -1 )|| (x_bar == -1 && y_bar == 1))
    distx = distx + (distance() * y_bar);
-    
+
   else if((x_bar == 1 && y_bar == 1)|| (x_bar == -1 && y_bar == -1))
     disty = disty + (distance() * x_bar);
 }
@@ -123,7 +102,7 @@ void backward(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
-	//updateCoOrdinate();
+	updateCoOrdinate();
 }
 
 void forward(){
@@ -133,7 +112,7 @@ void forward(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
-	//updateCoOrdinate();
+	updateCoOrdinate();
 }
 
 void leftTurn(){
@@ -229,9 +208,6 @@ int ultrasonicRight(){
 void setup(){
 	wiringPiSetup();
 	pinMode(A_Left, INPUT);
-	pinMode(B_Left, INPUT);
-	pinMode(A_Right, INPUT);
-	pinMode(B_Right, INPUT);
 	pinMode(dirPin_r1, OUTPUT);
 	pinMode(dirPin_l1, OUTPUT);
 	pinMode(dirPin_r2, OUTPUT);
@@ -241,9 +217,6 @@ void setup(){
 	pullUpDnControl(A_Left, PUD_UP);
 	pullUpDnControl(B_Left, PUD_UP);
 	wiringPiISR(A_Left,INT_EDGE_BOTH,Enc_A_Left);
-	wiringPiISR(B_Left,INT_EDGE_BOTH,Enc_B_Left);
-	wiringPiISR(A_Right,INT_EDGE_BOTH,Enc_A_Right);
-	wiringPiISR(B_Right,INT_EDGE_BOTH,Enc_B_Right);
 	softPwmCreate(pwmPinR, 0, 225);
 	softPwmCreate(pwmPinL, 0, 225);
 	pinMode(TRIG_FRONT, OUTPUT);
@@ -255,11 +228,11 @@ void setup(){
 	digitalWrite(TRIG_FRONT, LOW);
 	digitalWrite(TRIG_LEFT, LOW);
 	digitalWrite(TRIG_RIGHT, LOW);
-}	
+}
 
 int main(){
 	setup();
 	while(1)
-		cout<<pos_l<<"\t"<<pos_r<<endl;
+		cout<<pos_l<<endl;
 	return 0;
 }
