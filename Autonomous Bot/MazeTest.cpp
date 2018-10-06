@@ -50,7 +50,7 @@ int Direction = 0;
 
 int TurnTime = 1000000;
 float circumference = 6.0 * 22 / 7.0;   //centimeter
-float cpr = 7500.0;
+float cpr = 750.0;
 int pwm = 100;
 
 
@@ -59,7 +59,7 @@ void Enc_A_Left(){
 }
 
 void Enc_B_Left(){
-	pos_l++;	
+	pos_l++;
 }
 
 float leftDistance(){
@@ -101,8 +101,8 @@ void backward(){
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
-	updateCoOrdinate();
+	softPwmWrite(pwmPinR,pwm-30);
+//	updateCoOrdinate();
 }
 
 void forward(){
@@ -112,7 +112,7 @@ void forward(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
-	updateCoOrdinate();
+//	updateCoOrdinate();
 }
 
 void leftTurn(){
@@ -212,10 +212,7 @@ void setup(){
 	pinMode(dirPin_l1, OUTPUT);
 	pinMode(dirPin_r2, OUTPUT);
 	pinMode(dirPin_l2, OUTPUT);
-	pullUpDnControl(A_Right, PUD_UP);
-	pullUpDnControl(B_Right, PUD_UP);
 	pullUpDnControl(A_Left, PUD_UP);
-	pullUpDnControl(B_Left, PUD_UP);
 	wiringPiISR(A_Left,INT_EDGE_BOTH,Enc_A_Left);
 	softPwmCreate(pwmPinR, 0, 225);
 	softPwmCreate(pwmPinL, 0, 225);
@@ -232,7 +229,15 @@ void setup(){
 
 int main(){
 	setup();
-	while(1)
-		cout<<pos_l<<endl;
+	forward();
+	for(int i = 0; i<100000000; i++);
+	stop();
+	for(int i = 0; i<200000000; i++);
+	cout<<"\n"<<distance();
+	backward();
+	for(int i = 0; i<100000000; i++);
+	stop();
+	for(int i = 0; i<200000000; i++);
+	cout<<"\n"<<distance();
 	return 0;
 }
