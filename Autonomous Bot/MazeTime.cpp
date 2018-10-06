@@ -46,7 +46,7 @@ int x = 1 ,y = 1;
 int Direction = 0;
 int dist = 0;
 
-int TurnTime = 280000;
+int TurnTime = 600000;
 float circumference = 6.0 * 22 / 7.0;  
  
 void rotateAxis(int sign){
@@ -159,8 +159,8 @@ void forward(){
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,150);
-	softPwmWrite(pwmPinR,150);
-	usleep(250000);
+	softPwmWrite(pwmPinR,160);
+	usleep(255000);
 	dist = 10;
 	stop();
 	updateCoOrdinate(1);
@@ -173,6 +173,8 @@ void rightTurn(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,75);
 	softPwmWrite(pwmPinR,75);
+	usleep(TurnTime);
+	stop();
 	rotateAxis(1);
 
 	Direction = (++Direction) % 4;
@@ -216,6 +218,7 @@ void setup(){
 
 int main(){
 	setup();
+	leftTurn();
 	forward();
 	cout<<distx<<" "<<disty;
 	return 0;
