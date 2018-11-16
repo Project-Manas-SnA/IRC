@@ -1,1 +1,0 @@
-/home/blackbox/catkin_ws/devel/.private/crab_description/share/crab_description/cmake/crab_descriptionConfig-version.cmake

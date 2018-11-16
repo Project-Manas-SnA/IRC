@@ -1,1 +1,0 @@
-/home/blackbox/catkin_ws/devel/.private/rosserial_mbed/lib/python2.7/dist-packages/rosserial_mbed/srv/_Test.py

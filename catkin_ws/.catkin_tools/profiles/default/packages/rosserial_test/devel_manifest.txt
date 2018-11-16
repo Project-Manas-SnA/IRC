@@ -1,4 +1,0 @@
-rosserial/rosserial_test
-/home/blackbox/catkin_ws/devel/.private/rosserial_test/lib/pkgconfig/rosserial_test.pc /home/blackbox/catkin_ws/devel/lib/pkgconfig/rosserial_test.pc
-/home/blackbox/catkin_ws/devel/.private/rosserial_test/share/rosserial_test/cmake/rosserial_testConfig-version.cmake /home/blackbox/catkin_ws/devel/share/rosserial_test/cmake/rosserial_testConfig-version.cmake
-/home/blackbox/catkin_ws/devel/.private/rosserial_test/share/rosserial_test/cmake/rosserial_testConfig.cmake /home/blackbox/catkin_ws/devel/share/rosserial_test/cmake/rosserial_testConfig.cmake

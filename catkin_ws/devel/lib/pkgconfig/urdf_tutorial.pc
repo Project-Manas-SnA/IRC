@@ -1,1 +1,0 @@
-/home/blackbox/catkin_ws/devel/.private/urdf_tutorial/lib/pkgconfig/urdf_tutorial.pc

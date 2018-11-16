@@ -1,8 +1,0 @@
-prefix=/home/blackbox/catkin_ws/devel/.private/sick_scan
-
-Name: sick_scan
-Description: Description of sick_scan
-Version: 0.0.13
-Cflags: -I/home/blackbox/catkin_ws/devel/.private/sick_scan/include -I/home/blackbox/catkin_ws/src/sick_scan/include -I/usr/include
-Libs: -L/home/blackbox/catkin_ws/devel/.private/sick_scan/lib -lsick_scan_lib /usr/lib/x86_64-linux-gnu/libboost_system.so
-Requires: message_runtime roscpp sensor_msgs diagnostic_updater dynamic_reconfigure

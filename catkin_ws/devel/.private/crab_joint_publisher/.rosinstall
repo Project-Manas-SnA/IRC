@@ -1,2 +1,0 @@
-- setup-file:
-    local-name: /home/blackbox/catkin_ws/devel/.private/crab_joint_publisher/setup.sh

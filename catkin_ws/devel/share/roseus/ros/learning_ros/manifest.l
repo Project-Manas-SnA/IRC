@@ -1,1 +1,0 @@
-/home/blackbox/catkin_ws/devel/.private/learning_ros/share/roseus/ros/learning_ros/manifest.l

@@ -1,7 +1,0 @@
-server
-/home/blackbox/catkin_ws/devel/.private/server/lib/pkgconfig/server.pc /home/blackbox/catkin_ws/devel/lib/pkgconfig/server.pc
-/home/blackbox/catkin_ws/devel/.private/server/lib/server/server_node /home/blackbox/catkin_ws/devel/lib/server/server_node
-/home/blackbox/catkin_ws/devel/.private/server/lib/server/test_node /home/blackbox/catkin_ws/devel/lib/server/test_node
-/home/blackbox/catkin_ws/devel/.private/server/lib/server/testt /home/blackbox/catkin_ws/devel/lib/server/testt
-/home/blackbox/catkin_ws/devel/.private/server/share/server/cmake/serverConfig-version.cmake /home/blackbox/catkin_ws/devel/share/server/cmake/serverConfig-version.cmake
-/home/blackbox/catkin_ws/devel/.private/server/share/server/cmake/serverConfig.cmake /home/blackbox/catkin_ws/devel/share/server/cmake/serverConfig.cmake

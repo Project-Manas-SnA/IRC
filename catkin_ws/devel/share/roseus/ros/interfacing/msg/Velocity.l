@@ -1,1 +1,0 @@
-/home/blackbox/catkin_ws/devel/.private/interfacing/share/roseus/ros/interfacing/msg/Velocity.l

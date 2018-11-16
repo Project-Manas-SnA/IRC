@@ -1,1 +1,0 @@
-/home/blackbox/catkin_ws/devel/.private/sick_scan/share/roseus/ros/sick_scan/manifest.l

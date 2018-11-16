@@ -1,1 +1,0 @@
-/home/blackbox/catkin_ws/devel/.private/learning_ros/share/gennodejs/ros/learning_ros/_index.js

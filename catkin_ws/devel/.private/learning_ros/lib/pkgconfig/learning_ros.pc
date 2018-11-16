@@ -1,8 +1,0 @@
-prefix=/home/blackbox/catkin_ws/devel/.private/learning_ros
-
-Name: learning_ros
-Description: Description of learning_ros
-Version: 0.0.0
-Cflags: -I/home/blackbox/catkin_ws/devel/.private/learning_ros/include
-Libs: -L/home/blackbox/catkin_ws/devel/.private/learning_ros/lib 
-Requires: 

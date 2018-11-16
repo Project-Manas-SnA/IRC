@@ -1,8 +1,0 @@
-prefix=/home/blackbox/catkin_ws/devel/.private/rosserial_mbed
-
-Name: rosserial_mbed
-Description: Description of rosserial_mbed
-Version: 0.7.7
-Cflags: -I/home/blackbox/catkin_ws/devel/.private/rosserial_mbed/include
-Libs: -L/home/blackbox/catkin_ws/devel/.private/rosserial_mbed/lib 
-Requires: message_runtime
