@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/blackbox/catkin_ws/devel/.private/server/setup.sh

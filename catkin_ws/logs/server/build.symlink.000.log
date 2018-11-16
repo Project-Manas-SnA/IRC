@@ -1,0 +1,6 @@
+Symlinking /home/blackbox/catkin_ws/devel/lib/pkgconfig/server.pc
+Symlinking /home/blackbox/catkin_ws/devel/lib/server/server_node
+Symlinking /home/blackbox/catkin_ws/devel/lib/server/test_node
+Symlinking /home/blackbox/catkin_ws/devel/lib/server/testt
+Symlinking /home/blackbox/catkin_ws/devel/share/server/cmake/serverConfig-version.cmake
+Symlinking /home/blackbox/catkin_ws/devel/share/server/cmake/serverConfig.cmake

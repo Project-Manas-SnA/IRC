@@ -1,0 +1,8 @@
+prefix=/home/blackbox/catkin_ws/devel/.private/vectornav
+
+Name: vectornav
+Description: Description of vectornav
+Version: 2.0.0
+Cflags: 
+Libs: -L/home/blackbox/catkin_ws/devel/.private/vectornav/lib 
+Requires: roscpp sensor_msgs

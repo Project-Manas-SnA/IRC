@@ -1,0 +1,1 @@
+/home/blackbox/catkin_ws/devel/.private/sick_scan/share/sick_scan/cmake/sick_scanConfig.cmake

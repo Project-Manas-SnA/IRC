@@ -1,0 +1,1 @@
+/home/blackbox/catkin_ws/devel/.private/interfacing/share/interfacing/cmake/interfacingConfig.cmake

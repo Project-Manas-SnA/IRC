@@ -1,0 +1,1 @@
+/home/blackbox/catkin_ws/devel/.private/learning_ros/share/common-lisp/ros/learning_ros/srv/learning_ros-srv.asd

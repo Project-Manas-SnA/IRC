@@ -1,0 +1,1 @@
+/home/blackbox/catkin_ws/devel/.private/interfacing/share/common-lisp/ros/interfacing/msg/velocity.lisp

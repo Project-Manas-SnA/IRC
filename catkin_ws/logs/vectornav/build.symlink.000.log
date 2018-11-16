@@ -1,0 +1,5 @@
+Symlinking /home/blackbox/catkin_ws/devel/lib/libvncxx.so
+Symlinking /home/blackbox/catkin_ws/devel/lib/pkgconfig/vectornav.pc
+Symlinking /home/blackbox/catkin_ws/devel/lib/vectornav/vnpub
+Symlinking /home/blackbox/catkin_ws/devel/share/vectornav/cmake/vectornavConfig-version.cmake
+Symlinking /home/blackbox/catkin_ws/devel/share/vectornav/cmake/vectornavConfig.cmake

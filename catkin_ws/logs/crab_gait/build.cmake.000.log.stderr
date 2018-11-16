@@ -1,0 +1,30 @@
+[33m[1mCMake Warning[0m at /opt/ros/kinetic/share/catkin/cmake/catkinConfig.cmake:76 (find_package):
+  Could not find a package configuration file provided by "orocos_kdl" with
+  any of the following names:
+
+    orocos_kdlConfig.cmake
+    orocos_kdl-config.cmake
+
+  Add the installation prefix of "orocos_kdl" to CMAKE_PREFIX_PATH or set
+  "orocos_kdl_DIR" to a directory containing one of the above files.  If
+  "orocos_kdl" provides a separate development package or SDK, be sure it has
+  been installed.
+[36mCall Stack (most recent call first):[0m
+  CMakeLists.txt:7 (find_package)
+
+
+[31m[1mCMake Error[0m at /opt/ros/kinetic/share/catkin/cmake/catkinConfig.cmake:83 (find_package):
+  Could not find a package configuration file provided by "orocos_kdl" with
+  any of the following names:
+
+    orocos_kdlConfig.cmake
+    orocos_kdl-config.cmake
+
+  Add the installation prefix of "orocos_kdl" to CMAKE_PREFIX_PATH or set
+  "orocos_kdl_DIR" to a directory containing one of the above files.  If
+  "orocos_kdl" provides a separate development package or SDK, be sure it has
+  been installed.
+[36mCall Stack (most recent call first):[0m
+  CMakeLists.txt:7 (find_package)
+
+

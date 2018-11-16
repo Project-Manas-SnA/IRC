@@ -1,0 +1,2 @@
+set(sick_scan_MESSAGE_FILES "/home/blackbox/catkin_ws/src/sick_scan/msg/RadarObject.msg;/home/blackbox/catkin_ws/src/sick_scan/msg/RadarPreHeaderDeviceBlock.msg;/home/blackbox/catkin_ws/src/sick_scan/msg/RadarPreHeaderMeasurementParam1Block.msg;/home/blackbox/catkin_ws/src/sick_scan/msg/RadarPreHeaderStatusBlock.msg;/home/blackbox/catkin_ws/src/sick_scan/msg/RadarPreHeaderEncoderBlock.msg;/home/blackbox/catkin_ws/src/sick_scan/msg/RadarPreHeader.msg;/home/blackbox/catkin_ws/src/sick_scan/msg/RadarScan.msg")
+set(sick_scan_SERVICE_FILES "")

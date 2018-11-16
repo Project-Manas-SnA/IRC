@@ -1,0 +1,8 @@
+prefix=/home/blackbox/catkin_ws/devel/.private/server
+
+Name: server
+Description: Description of server
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/blackbox/catkin_ws/devel/.private/server/lib 
+Requires: 

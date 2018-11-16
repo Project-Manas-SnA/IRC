@@ -1,0 +1,8 @@
+prefix=/home/blackbox/catkin_ws/devel/.private/crab_description
+
+Name: crab_description
+Description: Description of crab_description
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/blackbox/catkin_ws/devel/.private/crab_description/lib 
+Requires: 

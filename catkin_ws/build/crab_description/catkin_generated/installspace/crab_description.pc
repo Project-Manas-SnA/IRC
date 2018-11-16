@@ -1,0 +1,8 @@
+prefix=/home/blackbox/catkin_ws/install
+
+Name: crab_description
+Description: Description of crab_description
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/blackbox/catkin_ws/install/lib 
+Requires: 
