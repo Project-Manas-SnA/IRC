@@ -1,2 +1,2 @@
-#IIT Bombay Tech-Fest
+IIT Bombay Tech-Fest
 
