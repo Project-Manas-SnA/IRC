@@ -47,7 +47,21 @@ def arm():
 
     for event in gamepad.read_loop():
 
-        if event.code == 04:
+        if event.code == 17:
+
+            if event.value == -1:
+                print("Suction Cup On")
+
+            elif event.value == 1:
+                print("Suction Cup Off")
+        elif event.code == 16:
+
+            if event.value == -1:
+                print("Dart Released")
+            elif event.value == 1:
+                print("Dart Released")
+
+        elif event.code == 04:
 
             if event.value == 589825 :
                 print("Servo 1 Forward")

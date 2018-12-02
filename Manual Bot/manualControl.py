@@ -36,6 +36,8 @@ GPIO.setup(pwmLeft,GPIO.OUT)
 GPIO.setup(directionRight,GPIO.OUT)
 GPIO.setup(pwmRight,GPIO.OUT)
 
+SuctionPin = 2 
+GPIO.setup(SuctionPin,GPIO.OUT)
 
 for i in range(150, 400, 50):
     pwm.set_pwm(0, 0, i)
@@ -102,17 +104,32 @@ def drive():
 
 def arm():
 
-    global gamepad, Motor, servo1, servo2, servo3, pwm, DIR, CW, CCW, SPR, delay,STEP, steps
+    global gamepad, Motor, servo1, servo2, servo3, pwm, DIR, CW, CCW, SPR, delay,STEP, steps, SuctionPin
 
     for event in gamepad.read_loop():
 
+    	if event.code == 17:
+
+            if event.value == -1:
+            	GPIO.output(SuctionPin,GPIO.HIGH)               #Suction On
+
+            elif event.value == 1:
+            	GPIO.output(SuctionPin,GPIO.LOW)               #Sunction Off
+                
+        
+        elif event.code == 16:
+
+            if event.value == -1:
+                pwm.set_pwm(0, 150, 650 )                     #Dart Released
+            elif event.value == 1:
+                pwm.set_pwm(0, 150, 650 )
         if event.code == 04:
 
             if event.value == 589825 :
                 servo1 = servo1 + steps
                 if servo1>=650:
                     servo1 = 650
-                pwm.set_pwm(0, 0, servo1)
+                pwm.set_pwm(3, 0, servo1)
                 time.sleep(0.5)
 
             if event.value == 589827:
