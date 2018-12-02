@@ -11,32 +11,34 @@
 using namespace std;
 
 /*******PINS Left*****
-0  1 * * * * * * * * 0
-1  1 2 3 4 * * * * * *
-2  1 2 * * 5 * * * * 0
-3  1
+0  * 1 * * 4 5 * * * * 
+1  * * 2 3 4 5 6 7 8 9 
+2  0 * * * * * 6 7 8 9 
+3  * *
 *********************/
 
 /*Define*/
 
-#define TRIG_FRONT 26
-#define ECHO_FRONT 27
-#define TRIG_RIGHT 2 
-#define ECHO_RIGHT 3
-#define TRIG_LEFT  4
-#define ECHO_LEFT  5
+#define TRIG_FRONT 30  //27
+#define ECHO_FRONT 21  //29
+#define TRIG_RIGHT 22  //31
+#define ECHO_RIGHT 23  //33
+#define TRIG_LEFT  24  //35
+#define ECHO_LEFT  25  //37
 
-#define  A_Right   28
-#define  B_Right   29
-#define  pwmPinR   23
-#define  dirPin_r1  8
-#define  dirPin_r2  6	
+#define  A_Right   6   //22
+#define  B_Right   10  //24
 
-#define A_Left     15
-#define B_Left     16
-#define pwmPinL    24
-#define dirPin_l1   9
-#define dirPin_l2   7
+#define  A_Left    11  //26
+#define  B_Left    31  //28
+
+#define  pwmPinR   0   //3
+#define  dirPin_r1 2   //5
+#define  dirPin_r2 3   //7	
+
+#define pwmPinL    8   //11
+#define dirPin_l1  9   //13
+#define dirPin_l2  7   //15
 
 /*GOBAL VARIABLE*/
 
