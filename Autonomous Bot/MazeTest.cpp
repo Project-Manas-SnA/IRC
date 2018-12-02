@@ -227,14 +227,12 @@ void setup(){
 	pullUpDnControl(B_Right, PUD_UP);
 	pullUpDnControl(A_Left, PUD_UP);
 	pullUpDnControl(B_Left, PUD_UP);
-	pullUpDnControl(23, PUD_DOWN);
-	pullUpDnControl(24, PUD_DOWN);
 	wiringPiISR(A_Left,INT_EDGE_BOTH,Enc_A_Left);
 	wiringPiISR(B_Left,INT_EDGE_BOTH,Enc_B_Left);
 	wiringPiISR(A_Right,INT_EDGE_BOTH,Enc_A_Right);
 	wiringPiISR(B_Right,INT_EDGE_BOTH,Enc_B_Right);
-	softPwmCreate(pwmPinR, 0, 310);
-	softPwmCreate(pwmPinL, 0, 310);
+	softPwmCreate(pwmPinR, 0, 225);
+	softPwmCreate(pwmPinL, 0, 225);
 	pinMode(TRIG_FRONT, OUTPUT);
 	pinMode(ECHO_FRONT, INPUT);
 	pinMode(TRIG_RIGHT, OUTPUT);
@@ -249,9 +247,9 @@ void setup(){
 
 int main(){
 	setup();
-	forward(5);
+	forward(50);
 	for(int i = 0;i<1000000000; i++);
-	backward(5);
+	backward(50);
 	for(int i = 0;i<1000000000; i++);
 	stop();
 	cout<<"\nLeft Ulrasonic"<<ultrasonicLeft();
