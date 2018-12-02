@@ -238,5 +238,8 @@ int main(){
 	backward(5);
 	for(int i = 0;i<100000000; i++);
 	stop();
+	cout<<"\nLeft Ulrasonic"<<ultrasonicLeft();
+	cout<<"\nFront Ulrasonic"<<ultrasonicFront();
+	cout<<"\nRight Ulrasonic"<<ultrasonicRight();
 	return 0;
 }
