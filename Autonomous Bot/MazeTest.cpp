@@ -11,10 +11,10 @@
 using namespace std;
 
 /*******PINS Left*****
-0  * 1 * * 4 5 * * * * 
-1  * * 2 3 4 5 6 7 8 9 
+0  * 1 * * * * 6 * * 0 
+1  * 1 2 3 4 5 6 7 8 9 
 2  0 * * * * * 6 7 8 9 
-3  * *
+3  * 1
 *********************/
 
 /*Define*/
@@ -26,28 +26,28 @@ using namespace std;
 #define TRIG_LEFT  24  //35
 #define ECHO_LEFT  25  //37
 
-#define  A_Right   6   //22
-#define  B_Right   10  //24
+#define  A_Left    4   //16
+#define  B_Left    5   //18
 
-#define  A_Left    11  //26
-#define  B_Left    31  //28
+#define  A_Right   1  //12
+#define  B_Right   16  //10
 
 #define  pwmPinR   0   //3
-#define  dirPin_r1 2   //5
-#define  dirPin_r2 3   //7	
+#define  dirPin_r1 3   //7
+#define  dirPin_r2 2   //5	
 
 #define pwmPinL    8   //11
-#define dirPin_l1  9   //13
-#define dirPin_l2  7   //15
+#define dirPin_l1  7   //15
+#define dirPin_l2  9   //13
 
 /*GOBAL VARIABLE*/
 
 bool AState_Right,BState_Right;
-int pos_r=0;
+int pos_r = 0;
 int pwmVal_Right;
 
 bool AState_Left,BState_Left;
-int pos_l=0;
+int pos_l = 0;
 int pwmVal_Left;
 
 
