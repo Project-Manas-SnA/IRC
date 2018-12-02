@@ -11,7 +11,7 @@
 using namespace std;
 
 /*******PINS Left*****
-0  1 * * * * 6 7 * * 0
+0  1 * * * * * * * * 0
 1  1 2 3 4 * * * * * *
 2  1 2 * * 5 * * * * 0
 3  1
@@ -21,7 +21,7 @@ using namespace std;
 
 #define TRIG_FRONT 26
 #define ECHO_FRONT 27
-#define TRIG_RIGHT 2
+#define TRIG_RIGHT 2 
 #define ECHO_RIGHT 3
 #define TRIG_LEFT  4
 #define ECHO_LEFT  5
@@ -29,12 +29,14 @@ using namespace std;
 #define  A_Right   28
 #define  B_Right   29
 #define  pwmPinR   23
-#define  dirPin_r  8
+#define  dirPin_r1  8
+#define  dirPin_r2  6	
 
-#define A_Left  15
-#define B_Left  16
-#define pwmPinL 24
-#define dirPin_l 9
+#define A_Left     15
+#define B_Left     16
+#define pwmPinL    24
+#define dirPin_l1   9
+#define dirPin_l2   7
 
 /*GOBAL VARIABLE*/
 
@@ -105,36 +107,46 @@ float rightDistance(){
 }
 
 void forward(int pwm){
-	digitalWrite(dirPin_l,HIGH);
-	digitalWrite(dirPin_r,HIGH);
+	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_r1,HIGH);
+	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
 }
 
 void backward(int pwm){
-	digitalWrite(dirPin_l,LOW);
-	digitalWrite(dirPin_r,LOW);
+	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_r1,LOW);
+	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
 }
 
 void leftTurn(int pwm){
-	digitalWrite(dirPin_l,LOW);
-	digitalWrite(dirPin_r,HIGH);
+	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_r1,HIGH);
+	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
 }
 
 void rightTurn(int pwm){
-	digitalWrite(dirPin_l,HIGH);
-	digitalWrite(dirPin_r,LOW);
+	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_r1,LOW);
+	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
 }
 
 void stop(){
-	digitalWrite(dirPin_l,LOW);
-	digitalWrite(dirPin_r,LOW);
+	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_r1,LOW);
+	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,0);
 	softPwmWrite(pwmPinR,0);
 }
@@ -205,8 +217,10 @@ void setup(){
 	pinMode(B_Left, INPUT);
 	pinMode(A_Right, INPUT);
 	pinMode(B_Right, INPUT);
-	pinMode(dirPin_r, OUTPUT);
-	pinMode(dirPin_l, OUTPUT);
+	pinMode(dirPin_r1, OUTPUT);
+	pinMode(dirPin_l1, OUTPUT);
+	pinMode(dirPin_r2, OUTPUT);
+	pinMode(dirPin_l2, OUTPUT);
 	pullUpDnControl(A_Right, PUD_UP);
 	pullUpDnControl(B_Right, PUD_UP);
 	pullUpDnControl(A_Left, PUD_UP);
@@ -234,9 +248,9 @@ void setup(){
 int main(){
 	setup();
 	forward(5);
-	for(int i = 0;i<100000000; i++);
+	for(int i = 0;i<1000000000; i++);
 	backward(5);
-	for(int i = 0;i<100000000; i++);
+	for(int i = 0;i<1000000000; i++);
 	stop();
 	cout<<"\nLeft Ulrasonic"<<ultrasonicLeft();
 	cout<<"\nFront Ulrasonic"<<ultrasonicFront();
