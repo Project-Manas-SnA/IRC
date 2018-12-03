@@ -169,9 +169,9 @@ void leftTurn(){
 
 void rightTurn(){
 	digitalWrite(dirPin_l1,HIGH);
-	digitalWrite(dirPin_r1,LOW);
+	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,LOW);
-	digitalWrite(dirPin_r2,HIGH);
+	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,50);
 	softPwmWrite(pwmPinR,50);
 	usleep(TurnTime);
