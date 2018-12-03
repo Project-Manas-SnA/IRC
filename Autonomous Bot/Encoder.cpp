@@ -29,16 +29,16 @@ using namespace std;
 #define  A_Left    4   //16
 #define  B_Left    5   //18
 
-#define  A_Right   1  //12
+#define  A_Right   0  //11
 #define  B_Right   16  //10
 
-#define  pwmPinR   0   //3
-#define  dirPin_r1 3   //7
-#define  dirPin_r2 2   //5	
+#define  pwmPinR   1   //12
+#define  dirPin_r1 3   //15
+#define  dirPin_r2 2   //13	
 
-#define pwmPinL    8   //11
-#define dirPin_l1  7   //15
-#define dirPin_l2  9   //13
+#define pwmPinL    8   //3
+#define dirPin_l1  7   //7
+#define dirPin_l2  9   //5
 
 /*GOBAL VARIABLE*/
 
