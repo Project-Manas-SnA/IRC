@@ -137,9 +137,9 @@ void stop(){
 }
 
 void forward(){
-	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,HIGH);
-	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,50);
 	softPwmWrite(pwmPinR,50);
@@ -156,9 +156,9 @@ void backward(){
 
 void leftTurn(){
 	digitalWrite(dirPin_l1,LOW);
-	digitalWrite(dirPin_r1,HIGH);
+	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,HIGH);
-	digitalWrite(dirPin_r2,LOW);
+	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,50);
 	softPwmWrite(pwmPinR,50);
 	usleep(TurnTime);
@@ -270,7 +270,7 @@ void setup(){
 	digitalWrite(TRIG_LEFT, LOW);
 	digitalWrite(TRIG_RIGHT, LOW);
 
-}
+}	
 
 int main(){
 	setup();
