@@ -249,7 +249,7 @@ int main(){
 	setup();
 	while(true)
 	{
-		cout<<pos_l<<"\t"<<pos_r<<"\t";
+		cout<<pos_l<<"\t"<<pos_r<<"\n";
 	}
 	cout<<"\nLeft Ulrasonic"<<ultrasonicLeft();
 	cout<<"\nFront Ulrasonic"<<ultrasonicFront();
