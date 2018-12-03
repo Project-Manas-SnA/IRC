@@ -53,7 +53,7 @@ int pwmVal_Left;
 int  distx=0,disty=0;
 int x_bar=1, y_bar=1;
 int x = 1 ,y = 1;
-int TurnTime = 100;
+int TurnTime = 1000000;
 
 void Enc_A_Right(){
 	AState_Right = digitalRead(A_Right);
@@ -275,10 +275,10 @@ void setup(){
 int main(){
 	setup();
 	forward();
-	usleep(100);
+	usleep(1000000);
 	stop();
-	usleep(100);
+	usleep(1000000);
 	leftTurn();
-	usleep(100);
+	usleep(1000000);
 	return 0;
 }
