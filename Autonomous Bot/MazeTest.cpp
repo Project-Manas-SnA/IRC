@@ -127,6 +127,14 @@ int updateCoOrdinate(){
   else if((x_bar==1 && y_bar==1)|| (x_bar==-1 && y_bar==-1))
     disty = disty + (distance()*x_bar);
 }
+void stop(){
+	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_r1,LOW);
+	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_r2,LOW);
+	softPwmWrite(pwmPinL,0);
+	softPwmWrite(pwmPinR,0);
+}
 
 void forward(){
 	digitalWrite(dirPin_l1,HIGH);
@@ -170,15 +178,6 @@ void rightTurn(){
 	stop();
 	rotateAxis(-1);
 	distance();
-}
-
-void stop(){
-	digitalWrite(dirPin_l1,LOW);
-	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,LOW);
-	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,0);
-	softPwmWrite(pwmPinR,0);
 }
 
 int ultrasonicLeft() {
