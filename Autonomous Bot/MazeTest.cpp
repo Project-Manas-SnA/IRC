@@ -29,7 +29,7 @@ using namespace std;
 #define  A_Left    4   //16
 #define  B_Left    5   //18
 
-#define  A_Right   1  //12
+#define  A_Right   1   //12
 #define  B_Right   16  //10
 
 #define  pwmPinR   0   //3
@@ -50,6 +50,10 @@ bool AState_Left,BState_Left;
 int pos_l = 0;
 int pwmVal_Left;
 
+int  distx=0,disty=0;
+int x_bar=1, y_bar=1;
+int x = 1 ,y = 1;
+int TurnTime = 100;
 
 void Enc_A_Right(){
 	AState_Right = digitalRead(A_Right);
@@ -60,7 +64,6 @@ void Enc_A_Right(){
 
 	else
 		pos_r+=(BState_Right==HIGH)?(1):(-1);
-
 }
 
 void Enc_B_Right(){
@@ -82,7 +85,6 @@ void Enc_A_Left(){
 		pos_l+=(BState_Left==LOW)?(1):(-1);
 	else
 		pos_l+=(BState_Left==HIGH)?(1):(-1);
-
 }
 
 void Enc_B_Left(){
@@ -93,7 +95,6 @@ void Enc_B_Left(){
 		pos_l+=(AState_Left==HIGH)?(1):(-1);
 	else
 		pos_l+=(AState_Left==LOW)?(1):(-1);
-
 }
 
 float leftDistance(){
@@ -107,41 +108,68 @@ float rightDistance(){
 	pos_l = 0;
 	return r;
 }
+float distance(){
+	return (rightDistance()+leftDistance()) / 2;
+}
 
-void forward(int pwm){
+void rotateAxis(int sign){
+  float thetha = (22/14) * sign;
+  x_bar=-y*sin(thetha);
+  y_bar=x*sin(thetha);
+  x = x_bar;
+  y = y_bar; 
+}
+
+int updateCoOrdinate(){ 
+  if((x_bar==1 && y_bar==-1 )|| (x_bar==-1 && y_bar==1))
+   distx = distx+ (distance()*y_bar);
+    
+  else if((x_bar==1 && y_bar==1)|| (x_bar==-1 && y_bar==-1))
+    disty = disty + (distance()*x_bar);
+}
+
+void forward(){
 	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
 }
 
-void backward(int pwm){
+void backward(){
 	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
 }
 
-void leftTurn(int pwm){
+void leftTurn(){
 	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+	usleep(TurnTime);
+	stop();
+	rotateAxis(1);
+	distance();
 }
 
-void rightTurn(int pwm){
+void rightTurn(){
 	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+	usleep(TurnTime);
+	stop();
+	rotateAxis(-1);
+	distance();
 }
 
 void stop(){
@@ -247,13 +275,11 @@ void setup(){
 
 int main(){
 	setup();
-	forward(50);
-	for(int i = 0;i<1000000000; i++);
-	backward(50);
-	for(int i = 0;i<1000000000; i++);
+	forward();
+	usleep(100);
 	stop();
-	cout<<"\nLeft Ulrasonic"<<ultrasonicLeft();
-	cout<<"\nFront Ulrasonic"<<ultrasonicFront();
-	cout<<"\nRight Ulrasonic"<<ultrasonicRight();
+	usleep(100);
+	leftTurn();
+	usleep(100);
 	return 0;
 }
