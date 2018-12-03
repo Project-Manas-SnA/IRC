@@ -136,7 +136,7 @@ void stop(){
 	softPwmWrite(pwmPinR,0);
 }
 
-void forward(){
+void backward(){
 	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,HIGH);
@@ -145,10 +145,10 @@ void forward(){
 	softPwmWrite(pwmPinR,50);
 }
 
-void backward(){
-	digitalWrite(dirPin_l1,LOW);
+void forward(){
+	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,50);
 	softPwmWrite(pwmPinR,50);
