@@ -7,16 +7,17 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 gamepad = InputDevice('/dev/input/event0')
 
+GPIO.setup(15,GPIO.OUT)
+GPIO.setup(18,GPIO.OUT)
+
 pwmLeft = GPIO.PWM(15, 1000)    #physical 10
 directionLeft = 17              #physical 11
 pwmRight = GPIO.PWM(18, 1000)   #physical 12
 directionRight = 27             #physical 13
 
 GPIO.setup(directionLeft,GPIO.OUT)
-GPIO.setup(pwmLeft,GPIO.OUT)
 
 GPIO.setup(directionRight,GPIO.OUT)
-GPIO.setup(pwmRight,GPIO.OUT)
 
 for event in gamepad.read_loop():
 
