@@ -1,14 +1,16 @@
 import time
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
-SuctionPin = 2 
+SuctionPin = 17
 GPIO.setup(SuctionPin,GPIO.OUT)
 
 
-while true:
-	GPIO.output(SuctionPin,GPIO.HIGH)  
-	time.sleep(1)
+while True:
+	GPIO.output(SuctionPin,GPIO.HIGH)
+	time.sleep(10)
+	print("on")
 	GPIO.output(SuctionPin,GPIO.LOW)
-	time.sleep  
+	time.sleep(10)
+	print("off")

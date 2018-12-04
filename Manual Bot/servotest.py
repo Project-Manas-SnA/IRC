@@ -1,8 +1,9 @@
 import RPi.GPIO as GPIO # always needed with RPi.GPIO  
-  
+import time  
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)  # choose BCM or BOARD numbering schemes. I use BCM  
   
-GPIO.setup(25, GPIO.OUT)# set GPIO 25 as an output. You can use any GPIO port  
+GPIO.setup(25, GPIO.OUT) # set GPIO 25 as an output. You can use any GPIO port  
   
 p = GPIO.PWM(25, 50)    # create an object p for PWM on port 25 at 50 Hertz  
                         # you can have more than one of these, but they need  
