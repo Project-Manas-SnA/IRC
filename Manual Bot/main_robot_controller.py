@@ -129,14 +129,13 @@ def arm():
                 pwm.set_pwm(2, 0, angle1)
                 time.sleep(0.5)
 
-		if event.code == 306:
-
-            if event.value == 1:
-                angle1 = angle1 - steps
-                if angle1<150:
-                    angle1 = 150
-                pwm.set_pwm(2, 0, angle1)
-                time.sleep(0.5)
+	if event.code == 306:
+		if event.value == 1:
+        	        angle1 = angle1 - steps
+                	if angle1<150:
+                    		angle1 = 150
+               		pwm.set_pwm(2, 0, angle1)
+                	time.sleep(0.5)
         
         if event.code == 307:
 
