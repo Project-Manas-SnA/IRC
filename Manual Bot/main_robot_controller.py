@@ -18,7 +18,7 @@ Motor = True
 
 GPIO.setwarnings(False)
 
-SuctionPin = 2 
+SuctionPin = 21 
 directionLeft = 17              #physical 11
 directionRight = 27             #physical 13
 GPIO.setup(directionLeft,GPIO.OUT)
@@ -40,17 +40,17 @@ delay = .005
 GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
 
-pwm.set_pwm(2, 0, 400 )
+pwm.set_pwm(2, 0, 500 )
 time.sleep(2)
-pwm.set_pwm(3, 0, 400 )
+pwm.set_pwm(3, 0, 500 )
 time.sleep(2)
-pwm.set_pwm(4, 0, 400 )
+pwm.set_pwm(4, 0, 500 )
 time.sleep(2)
 
 def drive():
 
-    global ARM, gamepad, pwmLeft, directionLeft, pwmRight, directionRight, speed
-
+    global Arm, gamepad, pwmLeft, directionLeft, pwmRight, directionRight, speed
+    print("Entered 1")
     for event in gamepad.read_loop():
 
         if event.code == 17:
@@ -93,15 +93,16 @@ def drive():
                 pwmRight.stop()
 
         elif event.code == 4:
-            if event.vaue == 589833:
-                ARM = True
+            if event.value == 589833:
+                Arm = True
                 Motor = False
+		print("Mode Changed")
                 break;
 
 def arm():
 
-global gamepad, Motor, angle1, angle2, angle3, pwm, DIR, CW, CCW, SPR, delay,STEP, steps, SuctionPin
-
+    global gamepad, Motor, angle1, angle2, angle3, pwm, DIR, CW, CCW, SPR, delay,STEP, steps, SuctionPin
+    print("Entered 2")
     for event in gamepad.read_loop():
 
         if event.code == 17:
@@ -111,14 +112,14 @@ global gamepad, Motor, angle1, angle2, angle3, pwm, DIR, CW, CCW, SPR, delay,STE
 
             elif event.value == 1:
                 GPIO.output(SuctionPin,GPIO.LOW)               #Sunction Off
-                
-        
+
         elif event.code == 16:
 
             if event.value == -1:
                 pwm.set_pwm(1, 150, 650 )                     #Dart Released
             elif event.value == 1:
                 pwm.set_pwm(1, 150, 650 )
+
         if event.code == 04:
 
             if event.value == 589825 :
@@ -127,7 +128,7 @@ global gamepad, Motor, angle1, angle2, angle3, pwm, DIR, CW, CCW, SPR, delay,STE
                     angle1 = 650
                 pwm.set_pwm(2, 0, angle1)
                 time.sleep(0.5)
-
+		
             if event.value == 589827:
                 angle1 = angle1 - steps
                 if angle1<150:
