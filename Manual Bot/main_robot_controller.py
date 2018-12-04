@@ -30,7 +30,7 @@ GPIO.setup(SuctionPin,GPIO.OUT)
 
 pwmLeft = GPIO.PWM(15, 1000)    #physical 10
 pwmRight = GPIO.PWM(18, 1000)   #physical 12
-
+GPIO.output(SuctionPin,GPIO.LOW)
 DIR = 20
 STEP = 21
 CW = 1
@@ -40,11 +40,11 @@ delay = .005
 GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
 
-pwm.set_pwm(2, 0, 400 )
+pwm.set_pwm(2, 0, 500 )
 time.sleep(2)
-pwm.set_pwm(3, 0, 400 )
+pwm.set_pwm(3, 0, 500 )
 time.sleep(2)
-pwm.set_pwm(4, 0, 300 )
+pwm.set_pwm(4, 0, 500 )
 time.sleep(2)
 
 def drive():
@@ -127,7 +127,7 @@ def arm():
                 if angle1>=650:
                     angle1 = 650
                 pwm.set_pwm(2, 0, angle1)
-                time.sleep(0.5)
+                time.sleep(1)
 
 	if event.code == 306:
 		if event.value == 1:
@@ -135,26 +135,27 @@ def arm():
                 	if angle1<150:
                     		angle1 = 150
                		pwm.set_pwm(2, 0, angle1)
-                	time.sleep(0.5)
+                	time.sleep(1)
         
         if event.code == 307:
 
-            if event.value == 1:
-                angle2 = angle2 + steps
-                if angle2>=650:
-                    angle2 = 650
-                pwm.set_pwm(3, 0, angle2)
-                time.sleep(0.5)
+		if event.value == 1:
+                	angle2 = angle2 + steps
+                	if angle2>=650:
+                    		angle2 = 650
+			pwm.set_pwm(3, 0, angle2)
+                	time.sleep(1)
+			print("lin2")
 
         if event.code == 305:
 
-            if event.value == 1:
-                angle2 = angle2 - steps
-                if angle2<150:
-                    angle2 = 150
-                pwm.set_pwm(3, 0, angle2)
-                time.sleep(0.5)
-        
+		if event.value == 1:
+                	angle2 = angle2 - steps
+                	if angle2<150:
+                    		angle2 = 150
+			pwm.set_pwm(3, 0, angle2)
+                	time.sleep(1)
+       			print("link 2") 
         if event.code == 310:
         
             if event.value == 1:
@@ -162,7 +163,7 @@ def arm():
                 if angle1>=650:
                     angle3 = 650
                 pwm.set_pwm(4, 0, angle3)
-                time.sleep(0.5)
+                time.sleep(1)
                 print("base motor +")
         
         if event.code == 311:
@@ -172,7 +173,7 @@ def arm():
                 if angle3<150:
                     angle3 = 150
                 pwm.set_pwm(4, 0, angle3)
-                time.sleep(0.5)
+                time.sleep(1)
                 print("base motor -")
         
         if event.code == 309:
