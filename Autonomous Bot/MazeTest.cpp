@@ -50,34 +50,36 @@ bool AState_Left,BState_Left;
 int pos_l = 0;
 int pwmVal_Left;
 
-int  distx=0,disty=0;
+int distx=0, disty=0;
 int x_bar=1, y_bar=1;
 int x = 1 ,y = 1;
-int TurnTime = 1000000;
+int Direction = 0;
 
+int TurnTime = 1000000;
 float circumference = 6.0 * 22 / 7.0;   //centimeter
 float cpr = 1500.0;
+int pmw = 100;
 
 
 void Enc_A_Right(){
 	AState_Right = digitalRead(A_Right);
 	BState_Right = digitalRead(B_Right);
 
-	if(AState_Right==true)
-		pos_r+=(BState_Right==LOW)?(1):(-1);
+	if(AState_Right == true)
+		pos_r += (BState_Right == LOW)?(1):(-1);
 
 	else
-		pos_r+=(BState_Right==HIGH)?(1):(-1);
+		pos_r += (BState_Right == HIGH)?(1):(-1);
 }
 
 void Enc_B_Right(){
 	AState_Right = digitalRead(A_Right);
 	BState_Right = digitalRead(B_Right);
 
-	if(BState_Right==true)
-		pos_r+=(AState_Right==HIGH)?(1):(-1);
+	if(BState_Right == true)
+		pos_r += (AState_Right == HIGH)?(1):(-1);
 	else
-		pos_r+=(AState_Right==LOW)?(1):(-1);
+		pos_r += (AState_Right == LOW)?(1):(-1);
 }
 
 void Enc_A_Left(){
@@ -85,10 +87,10 @@ void Enc_A_Left(){
 	BState_Left = digitalRead(B_Left);
 
 
-	if(AState_Left==true)
-		pos_l+=(BState_Left==LOW)?(1):(-1);
+	if(AState_Left == true)
+		pos_l += (BState_Left == LOW)?(1):(-1);
 	else
-		pos_l+=(BState_Left==HIGH)?(1):(-1);
+		pos_l += (BState_Left == HIGH)?(1):(-1);
 }
 
 void Enc_B_Left(){
@@ -96,9 +98,9 @@ void Enc_B_Left(){
 	BState_Left = digitalRead(B_Left);
 
 	if(BState_Left==true)
-		pos_l+=(AState_Left==HIGH)?(1):(-1);
+		pos_l += (AState_Left == HIGH)?(1):(-1);
 	else
-		pos_l+=(AState_Left==LOW)?(1):(-1);
+		pos_l += (AState_Left == LOW)?(1):(-1);
 }
 
 float leftDistance(){
@@ -118,19 +120,18 @@ float distance(){
 }
 
 void rotateAxis(int sign){
-  float thetha = (22/14) * sign;
-  x_bar=-y*sin(thetha);
-  y_bar=x*sin(thetha);
+  x_bar = -y*sign;
+  y_bar = x*sign;
   x = x_bar;
   y = y_bar; 
 }
 
-int updateCoOrdinate(){
-  if((x_bar==1 && y_bar==-1 )|| (x_bar==-1 && y_bar==1))
-   distx = distx+ (distance()*y_bar);
+void updateCoOrdinate(){
+  if((x_bar == 1 && y_bar == -1 )|| (x_bar == -1 && y_bar == 1))
+   distx = distx + (distance() * y_bar);
     
-  else if((x_bar==1 && y_bar==1)|| (x_bar==-1 && y_bar==-1))
-    disty = disty + (distance()*x_bar);
+  else if((x_bar == 1 && y_bar == 1)|| (x_bar == -1 && y_bar == -1))
+    disty = disty + (distance() * x_bar);
 }
 void stop(){
 	digitalWrite(dirPin_l1,LOW);
@@ -146,8 +147,9 @@ void backward(){
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,50);
-	softPwmWrite(pwmPinR,50);
+	softPwmWrite(pwmPinL,pwm);
+	softPwmWrite(pwmPinR,pwm);
+	updateCoOrdinate();
 }
 
 void forward(){
@@ -155,8 +157,9 @@ void forward(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,50);
-	softPwmWrite(pwmPinR,50);
+	softPwmWrite(pwmPinL,pwm);
+	softPwmWrite(pwmPinR,pwm);
+	updateCoOrdinate();
 }
 
 void leftTurn(){
@@ -164,12 +167,13 @@ void leftTurn(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,50);
-	softPwmWrite(pwmPinR,50);
+	softPwmWrite(pwmPinL,pwm);
+	softPwmWrite(pwmPinR,pwm);
 	usleep(TurnTime);
 	stop();
 	rotateAxis(1);
 	distance();
+	Direction = (++Direction) % 4;
 }
 
 void rightTurn(){
@@ -177,12 +181,15 @@ void rightTurn(){
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,50);
-	softPwmWrite(pwmPinR,50);
+	softPwmWrite(pwmPinL,pwm);
+	softPwmWrite(pwmPinR,pwm);
 	usleep(TurnTime);
 	stop();
 	rotateAxis(-1);
 	distance();
+	Direction = --Direction ;
+	if (Direction == -1)
+		Direction = 3;
 }
 
 int ultrasonicLeft(){
@@ -278,5 +285,11 @@ void setup(){
 
 int main(){
 	setup();
+	forward();
+	usleep(100000);
+	cout<<"\n"leftDistance()<<" "<<rightDistance();
+	backward()
+	usleep(100000);
+	cout<<"\n"leftDistance()<<" "<<rightDistance();
 	return 0;
 }
