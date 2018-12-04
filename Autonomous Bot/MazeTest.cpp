@@ -53,7 +53,11 @@ int pwmVal_Left;
 int  distx=0,disty=0;
 int x_bar=1, y_bar=1;
 int x = 1 ,y = 1;
-int TurnTime = 650000;
+int TurnTime = 1000000;
+
+float circumference = 6.0 * 22 / 7.0;   //centimeter
+float cpr = 1500.0;
+
 
 void Enc_A_Right(){
 	AState_Right = digitalRead(A_Right);
@@ -98,18 +102,19 @@ void Enc_B_Left(){
 }
 
 float leftDistance(){
-	float l = 3.142 * 60.0 * ( pos_l / 2000.0 ); //distance travelled in mm
+	float l = circumference * ( pos_l / cpr ); //distance travelled in cm
 	pos_l = 0;
 	return l;
 }
 
 float rightDistance(){
-	float r = 3.142 * 60.0 * ( pos_r / 2000.0 );	//distance travelled in mm
+	float r = circumference * ( pos_r / cpr );;	//distance travelled in cm
 	pos_l = 0;
 	return r;
 }
+
 float distance(){
-	return (rightDistance()+leftDistance()) / 2;
+	return (rightDistance() + leftDistance()) / 2;
 }
 
 void rotateAxis(int sign){
@@ -120,7 +125,7 @@ void rotateAxis(int sign){
   y = y_bar; 
 }
 
-int updateCoOrdinate(){ 
+int updateCoOrdinate(){
   if((x_bar==1 && y_bar==-1 )|| (x_bar==-1 && y_bar==1))
    distx = distx+ (distance()*y_bar);
     
@@ -150,8 +155,8 @@ void forward(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,100);
-	softPwmWrite(pwmPinR,85);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
 }
 
 void leftTurn(){
@@ -159,8 +164,8 @@ void leftTurn(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,100);
-	softPwmWrite(pwmPinR,100);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
 	usleep(TurnTime);
 	stop();
 	rotateAxis(1);
@@ -172,15 +177,15 @@ void rightTurn(){
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,100);
-	softPwmWrite(pwmPinR,100);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
 	usleep(TurnTime);
 	stop();
 	rotateAxis(-1);
 	distance();
 }
 
-int ultrasonicLeft() {
+int ultrasonicLeft(){
 
 	digitalWrite(TRIG_LEFT, HIGH);
 	delayMicroseconds(20);
@@ -200,7 +205,7 @@ int ultrasonicLeft() {
 	return distance;
 }
 
-int ultrasonicFront() {
+int ultrasonicFront(){
 
         digitalWrite(TRIG_FRONT, HIGH);
         delayMicroseconds(20);
@@ -220,7 +225,7 @@ int ultrasonicFront() {
         return distance;
 }
 
-int ultrasonicRight() {
+int ultrasonicRight(){
 
         digitalWrite(TRIG_RIGHT, HIGH);
         delayMicroseconds(20);
@@ -269,16 +274,9 @@ void setup(){
 	digitalWrite(TRIG_FRONT, LOW);
 	digitalWrite(TRIG_LEFT, LOW);
 	digitalWrite(TRIG_RIGHT, LOW);
-
 }	
 
 int main(){
 	setup();
-//	forward();
-//	usleep(1000000);
-//	stop();
-//	usleep(1000000);
-	rightTurn();
-	usleep(1000000);
 	return 0;
 }

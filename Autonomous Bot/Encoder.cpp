@@ -62,7 +62,7 @@ void Enc_A_Right(){
 		pos_r+=(BState_Right==HIGH)?(1):(-1);
 
 }
-/*
+
 void Enc_B_Right(){
 	AState_Right = digitalRead(A_Right);
 	BState_Right = digitalRead(B_Right);
@@ -72,7 +72,7 @@ void Enc_B_Right(){
 	else
 		pos_r+=(AState_Right==LOW)?(1):(-1);
 }
-*/
+
 void Enc_A_Left(){
 	AState_Left = digitalRead(A_Left);
 	BState_Left = digitalRead(B_Left);
@@ -84,7 +84,7 @@ void Enc_A_Left(){
 		pos_l+=(BState_Left==HIGH)?(1):(-1);
 
 }
-/*
+
 void Enc_B_Left(){
 	AState_Left = digitalRead(A_Left);
 	BState_Left = digitalRead(B_Left);
@@ -95,7 +95,7 @@ void Enc_B_Left(){
 		pos_l+=(AState_Left==LOW)?(1):(-1);
 
 }
-*/
+
 float leftDistance(){
 	float l = 3.142 * 60.0 * ( pos_l / 2000.0 ); //distance travelled in mm
 	pos_l = 0;
@@ -228,9 +228,9 @@ void setup(){
 	pullUpDnControl(A_Left, PUD_UP);
 	pullUpDnControl(B_Left, PUD_UP);
 	wiringPiISR(A_Left,INT_EDGE_BOTH,Enc_A_Left);
-//	wiringPiISR(B_Left,INT_EDGE_BOTH,Enc_B_Left);
+	wiringPiISR(B_Left,INT_EDGE_BOTH,Enc_B_Left);
 	wiringPiISR(A_Right,INT_EDGE_BOTH,Enc_A_Right);
-//	wiringPiISR(B_Right,INT_EDGE_BOTH,Enc_B_Right);
+	wiringPiISR(B_Right,INT_EDGE_BOTH,Enc_B_Right);
 	softPwmCreate(pwmPinR, 0, 225);
 	softPwmCreate(pwmPinL, 0, 225);
 	pinMode(TRIG_FRONT, OUTPUT);
@@ -251,8 +251,5 @@ int main(){
 	{
 		cout<<pos_l<<"\t"<<pos_r<<"\n";
 	}
-	cout<<"\nLeft Ulrasonic"<<ultrasonicLeft();
-	cout<<"\nFront Ulrasonic"<<ultrasonicFront();
-	cout<<"\nRight Ulrasonic"<<ultrasonicRight();
 	return 0;
 }

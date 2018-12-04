@@ -11,10 +11,10 @@
 using namespace std;
 
 /*******PINS Left*****
-0  * 1 * * 4 5 * * * * 
-1  * * 2 3 4 5 6 7 8 9 
+0  * 1 * * * * 6 * * 0 
+1  * 1 2 3 4 5 6 7 8 9 
 2  0 * * * * * 6 7 8 9 
-3  * *
+3  * 1
 *********************/
 
 /*Define*/
@@ -26,29 +26,37 @@ using namespace std;
 #define TRIG_LEFT  24  //35
 #define ECHO_LEFT  25  //37
 
-#define  A_Right   6   //22
-#define  B_Right   10  //24
+#define  A_Left    4   //16
+#define  B_Left    5   //18
 
-#define  A_Left    11  //26
-#define  B_Left    31  //28
+#define  A_Right   1   //12
+#define  B_Right   16  //10
 
 #define  pwmPinR   0   //3
-#define  dirPin_r1 2   //5
-#define  dirPin_r2 3   //7	
+#define  dirPin_r1 3   //7
+#define  dirPin_r2 2   //5	
 
 #define pwmPinL    8   //11
-#define dirPin_l1  9   //13
-#define dirPin_l2  7   //15
+#define dirPin_l1  7   //15
+#define dirPin_l2  9   //13
 
 /*GOBAL VARIABLE*/
 
 bool AState_Right,BState_Right;
-int pos_r=0;
+int pos_r = 0;
 int pwmVal_Right;
 
 bool AState_Left,BState_Left;
-int pos_l=0;
+int pos_l = 0;
 int pwmVal_Left;
+
+int  distx=0,disty=0;
+int x_bar=1, y_bar=1;
+int x = 1 ,y = 1;
+int TurnTime = 1000000;
+
+float circumference = 6.0 * 22 / 7.0;   //centimeter
+float cpr = 1500.0;
 
 
 void Enc_A_Right(){
@@ -60,7 +68,6 @@ void Enc_A_Right(){
 
 	else
 		pos_r+=(BState_Right==HIGH)?(1):(-1);
-
 }
 
 void Enc_B_Right(){
@@ -82,7 +89,6 @@ void Enc_A_Left(){
 		pos_l+=(BState_Left==LOW)?(1):(-1);
 	else
 		pos_l+=(BState_Left==HIGH)?(1):(-1);
-
 }
 
 void Enc_B_Left(){
@@ -93,57 +99,39 @@ void Enc_B_Left(){
 		pos_l+=(AState_Left==HIGH)?(1):(-1);
 	else
 		pos_l+=(AState_Left==LOW)?(1):(-1);
-
 }
 
 float leftDistance(){
-	float l = 3.142 * 60.0 * ( pos_l / 2000.0 ); //distance travelled in mm
+	float l = circumference * ( pos_l / cpr ); //distance travelled in cm
 	pos_l = 0;
 	return l;
 }
 
 float rightDistance(){
-	float r = 3.142 * 60.0 * ( pos_r / 2000.0 );	//distance travelled in mm
+	float r = circumference * ( pos_r / cpr );;	//distance travelled in cm
 	pos_l = 0;
 	return r;
 }
 
-void forward(int pwm){
-	digitalWrite(dirPin_l1,HIGH);
-	digitalWrite(dirPin_r1,HIGH);
-	digitalWrite(dirPin_l2,LOW);
-	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
+float distance(){
+	return (rightDistance() + leftDistance()) / 2;
 }
 
-void backward(int pwm){
-	digitalWrite(dirPin_l1,LOW);
-	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,HIGH);
-	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
+void rotateAxis(int sign){
+  float thetha = (22/14) * sign;
+  x_bar=-y*sin(thetha);
+  y_bar=x*sin(thetha);
+  x = x_bar;
+  y = y_bar; 
 }
 
-void leftTurn(int pwm){
-	digitalWrite(dirPin_l1,LOW);
-	digitalWrite(dirPin_r1,HIGH);
-	digitalWrite(dirPin_l2,HIGH);
-	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
+int updateCoOrdinate(){
+  if((x_bar==1 && y_bar==-1 )|| (x_bar==-1 && y_bar==1))
+   distx = distx+ (distance()*y_bar);
+    
+  else if((x_bar==1 && y_bar==1)|| (x_bar==-1 && y_bar==-1))
+    disty = disty + (distance()*x_bar);
 }
-
-void rightTurn(int pwm){
-	digitalWrite(dirPin_l1,HIGH);
-	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,LOW);
-	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,pwm);
-	softPwmWrite(pwmPinR,pwm);
-}
-
 void stop(){
 	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,LOW);
@@ -153,7 +141,51 @@ void stop(){
 	softPwmWrite(pwmPinR,0);
 }
 
-int ultrasonicLeft() {
+void backward(){
+	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_r1,HIGH);
+	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_r2,LOW);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+}
+
+void forward(){
+	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_r1,LOW);
+	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_r2,HIGH);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+}
+
+void leftTurn(){
+	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_r1,LOW);
+	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_r2,HIGH);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+	usleep(TurnTime);
+	stop();
+	rotateAxis(1);
+	distance();
+}
+
+void rightTurn(){
+	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_r1,HIGH);
+	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_r2,LOW);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+	usleep(TurnTime);
+	stop();
+	rotateAxis(-1);
+	distance();
+}
+
+int ultrasonicLeft(){
 
 	digitalWrite(TRIG_LEFT, HIGH);
 	delayMicroseconds(20);
@@ -173,7 +205,7 @@ int ultrasonicLeft() {
 	return distance;
 }
 
-int ultrasonicFront() {
+int ultrasonicFront(){
 
         digitalWrite(TRIG_FRONT, HIGH);
         delayMicroseconds(20);
@@ -193,7 +225,7 @@ int ultrasonicFront() {
         return distance;
 }
 
-int ultrasonicRight() {
+int ultrasonicRight(){
 
         digitalWrite(TRIG_RIGHT, HIGH);
         delayMicroseconds(20);
@@ -227,14 +259,12 @@ void setup(){
 	pullUpDnControl(B_Right, PUD_UP);
 	pullUpDnControl(A_Left, PUD_UP);
 	pullUpDnControl(B_Left, PUD_UP);
-	pullUpDnControl(23, PUD_DOWN);
-	pullUpDnControl(24, PUD_DOWN);
 	wiringPiISR(A_Left,INT_EDGE_BOTH,Enc_A_Left);
 	wiringPiISR(B_Left,INT_EDGE_BOTH,Enc_B_Left);
 	wiringPiISR(A_Right,INT_EDGE_BOTH,Enc_A_Right);
 	wiringPiISR(B_Right,INT_EDGE_BOTH,Enc_B_Right);
-	softPwmCreate(pwmPinR, 0, 310);
-	softPwmCreate(pwmPinL, 0, 310);
+	softPwmCreate(pwmPinR, 0, 225);
+	softPwmCreate(pwmPinL, 0, 225);
 	pinMode(TRIG_FRONT, OUTPUT);
 	pinMode(ECHO_FRONT, INPUT);
 	pinMode(TRIG_RIGHT, OUTPUT);
@@ -244,8 +274,7 @@ void setup(){
 	digitalWrite(TRIG_FRONT, LOW);
 	digitalWrite(TRIG_LEFT, LOW);
 	digitalWrite(TRIG_RIGHT, LOW);
-
-}
+}	
 
 int main(){
 	setup();
