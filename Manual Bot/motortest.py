@@ -4,7 +4,9 @@ import Adafruit_PCA9685
 import time
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+
 gamepad = InputDevice('/dev/input/event0')
 
 GPIO.setup(15,GPIO.OUT)
@@ -19,21 +21,24 @@ GPIO.setup(directionLeft,GPIO.OUT)
 
 GPIO.setup(directionRight,GPIO.OUT)
 
+speed = 50
 for event in gamepad.read_loop():
 
     if event.code == 17:
 
         if event.value == -1:
-            GPIO.output(directionLeft,GPIO.HIGH)
+            GPIO.output(directionLeft,GPIO.LOW)
             pwmLeft.start(speed)
             GPIO.output(directionRight,GPIO.HIGH)              #Forward
             pwmRight.start(speed)
-        elif event.value == 1:
-            GPIO.output(directionLeft,GPIO.LOW)
+            print("Forward")
+
+	elif event.value == 1:
+            GPIO.output(directionLeft,GPIO.HIGH)
             pwmLeft.start(speed)                                   #Backward
             GPIO.output(directionRight,GPIO.LOW)
             pwmRight.start(speed)
-
+	    print ("Backwards")
 
         elif event.value == 0:
             GPIO.output(directionLeft,GPIO.LOW)
@@ -44,17 +49,18 @@ for event in gamepad.read_loop():
     elif event.code == 16:
 
         if event.value == -1:
-            GPIO.output(directionLeft,GPIO.LOW)
+            GPIO.output(directionLeft,GPIO.HIGH)
             pwmLeft.start(speed)
             GPIO.output(directionRight,GPIO.HIGH)              #Left
             pwmRight.start(speed)
+	    print("left")
 
         elif event.value == 1:
-            GPIO.output(directionLeft,GPIO.HIGH)
+            GPIO.output(directionLeft,GPIO.LOW)
             pwmLeft.start(speed)
             GPIO.output(directionRight,GPIO.LOW)              #Right
             pwmRight.start(speed)
-
+	    print("right")
         elif event.value == 0:
             GPIO.output(directionLeft,GPIO.LOW)
             pwmLeft.stop()                                     #stop
