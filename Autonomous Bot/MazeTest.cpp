@@ -57,50 +57,24 @@ int Direction = 0;
 
 int TurnTime = 1000000;
 float circumference = 6.0 * 22 / 7.0;   //centimeter
-float cpr = 1500.0;
-int pmw = 100;
+float cpr = 7500.0;
+int pwm = 100;
 
 
 void Enc_A_Right(){
-	AState_Right = digitalRead(A_Right);
-	BState_Right = digitalRead(B_Right);
-
-	if(AState_Right == true)
-		pos_r += (BState_Right == LOW)?(1):(-1);
-
-	else
-		pos_r += (BState_Right == HIGH)?(1):(-1);
+	pos_r++;
 }
 
 void Enc_B_Right(){
-	AState_Right = digitalRead(A_Right);
-	BState_Right = digitalRead(B_Right);
-
-	if(BState_Right == true)
-		pos_r += (AState_Right == HIGH)?(1):(-1);
-	else
-		pos_r += (AState_Right == LOW)?(1):(-1);
+	pos_r++;
 }
 
 void Enc_A_Left(){
-	AState_Left = digitalRead(A_Left);
-	BState_Left = digitalRead(B_Left);
-
-
-	if(AState_Left == true)
-		pos_l += (BState_Left == LOW)?(1):(-1);
-	else
-		pos_l += (BState_Left == HIGH)?(1):(-1);
+	pos_l--;
 }
 
 void Enc_B_Left(){
-	AState_Left = digitalRead(A_Left);
-	BState_Left = digitalRead(B_Left);
-
-	if(BState_Left==true)
-		pos_l += (AState_Left == HIGH)?(1):(-1);
-	else
-		pos_l += (AState_Left == LOW)?(1):(-1);
+	pos_l--;	
 }
 
 float leftDistance(){
@@ -149,7 +123,7 @@ void backward(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
-	updateCoOrdinate();
+	//updateCoOrdinate();
 }
 
 void forward(){
@@ -159,7 +133,7 @@ void forward(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,pwm);
 	softPwmWrite(pwmPinR,pwm);
-	updateCoOrdinate();
+	//updateCoOrdinate();
 }
 
 void leftTurn(){
@@ -285,11 +259,7 @@ void setup(){
 
 int main(){
 	setup();
-	forward();
-	usleep(100000);
-	cout<<"\n"leftDistance()<<" "<<rightDistance();
-	backward()
-	usleep(100000);
-	cout<<"\n"leftDistance()<<" "<<rightDistance();
+	while(1)
+		cout<<pos_l<<"\t"<<pos_r<<endl;
 	return 0;
 }
