@@ -102,10 +102,10 @@ void backward(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
-	usleep(1000000);
+	while(pos_l<350){continue;}
 	stop();
-	usleep(1000000);
-	cout<<pos_l;
+	usleep(100000);
+	//cout<<pos_l<<"\t";
 	updateCoOrdinate(-1);
 }
 
@@ -134,7 +134,7 @@ void rightTurn(){
 	stop();
 	rotateAxis(1);
 	usleep(100000);
-	cout<<"\n"<<pos_l<<"\t";
+	//cout<<"\n"<<pos_l<<"\t";
 	distance();
 	cout<<pos_l;
 	Direction = (++Direction) % 4;
@@ -142,7 +142,6 @@ void rightTurn(){
 }
 
 void leftTurn(){
-	cout<<i++;
 	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,LOW);
@@ -153,7 +152,7 @@ void leftTurn(){
 	stop();
 	rotateAxis(-1);
 	usleep(100000);
-	cout<<"\n"<<pos_l<<"\t";
+	//cout<<"\n"<<pos_l<<"\t";
 	distance();
 	Direction = --Direction ;
 	if (Direction == -1)
@@ -245,13 +244,6 @@ void setup(){
 
 int main(){
 	setup();
-	leftTurn();
-//	cout<<"\n"<<distx<<"\t"<<disty;
-//	rightTurn();
-	//while(abs(distx)<50 && abs(disty)<50){
-//	forward();
-	cout<<"\t"<<distx<<"\t"<<disty<<"\n";
-	//}
 	return 0;
 }
 
