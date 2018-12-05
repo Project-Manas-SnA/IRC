@@ -102,10 +102,8 @@ void backward(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
-	//for(int i = 0; i<100000000; i++);
 	usleep(1000000);
 	stop();
-	//for(int i = 0; i<400000000; i++);
 	usleep(1000000);
 	updateCoOrdinate(-1);
 }
@@ -117,15 +115,13 @@ void forward(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
-	//for(int i = 0; i<100000000; i++);
 	usleep(1000000);
 	stop();
-	//for(int i = 0; i<400000000; i++);
 	usleep(1000000);
 	updateCoOrdinate(1);
 }
 
-void leftTurn(){
+void rightTurn(){
 	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,HIGH);
@@ -139,7 +135,7 @@ void leftTurn(){
 	Direction = (++Direction) % 4;
 }
 
-void rightTurn(){
+void leftTurn(){
 	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,LOW);
@@ -239,11 +235,10 @@ void setup(){
 
 int main(){
 	setup();
-//	forward();
-//	cout<<"\n"<<distx<<"\t"<<disty;
-//	backward();
 	rightTurn();
 	cout<<"\n"<<distx<<"\t"<<disty;
+	forward();
+	cout<<distx<<"\t"<<disty;
 	return 0;
 }
 
