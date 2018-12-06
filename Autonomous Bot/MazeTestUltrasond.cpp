@@ -85,6 +85,66 @@ void updateCoOrdinate(int i){
   else if((x_bar == 1 && y_bar == 1)|| (x_bar == -1 && y_bar == -1))
     disty = disty + i*(distance() * x_bar);
 }
+
+int ultrasonicLeft(){
+
+	digitalWrite(TRIG_LEFT, HIGH);
+	delayMicroseconds(20);
+	digitalWrite(TRIG_LEFT, LOW);
+
+
+	while(digitalRead(ECHO_LEFT) == LOW);
+
+
+	long startTime = micros();
+	while(digitalRead(ECHO_LEFT) == HIGH);
+	long travelTime = micros() - startTime;
+
+
+	int distance = travelTime * 10 / 58;
+
+	return distance;
+}
+
+int ultrasonicFront(){
+
+        digitalWrite(TRIG_FRONT, HIGH);
+        delayMicroseconds(20);
+        digitalWrite(TRIG_FRONT, LOW);
+
+
+        while(digitalRead(ECHO_FRONT) == LOW);
+
+
+        long startTime = micros();
+        while(digitalRead(ECHO_FRONT) == HIGH);
+        long travelTime = micros() - startTime;
+
+
+        int distance = travelTime * 10 / 58;
+
+        return distance;
+}
+
+int ultrasonicRight(){
+
+        digitalWrite(TRIG_RIGHT, HIGH);
+        delayMicroseconds(20);
+        digitalWrite(TRIG_RIGHT, LOW);
+
+
+        while(digitalRead(ECHO_RIGHT) == LOW);
+
+
+        long startTime = micros();
+        while(digitalRead(ECHO_RIGHT) == HIGH);
+        long travelTime = micros() - startTime;
+
+
+        int distance = travelTime   * 10 / 58;
+
+        return distance;
+}
 void stop(){
 	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,LOW);
@@ -158,65 +218,6 @@ void leftTurn(){
 	usleep(50000);
 }
 
-int ultrasonicLeft(){
-
-	digitalWrite(TRIG_LEFT, HIGH);
-	delayMicroseconds(20);
-	digitalWrite(TRIG_LEFT, LOW);
-
-
-	while(digitalRead(ECHO_LEFT) == LOW);
-
-
-	long startTime = micros();
-	while(digitalRead(ECHO_LEFT) == HIGH);
-	long travelTime = micros() - startTime;
-
-
-	int distance = travelTime * 10 / 58;
-
-	return distance;
-}
-
-int ultrasonicFront(){
-
-        digitalWrite(TRIG_FRONT, HIGH);
-        delayMicroseconds(20);
-        digitalWrite(TRIG_FRONT, LOW);
-
-
-        while(digitalRead(ECHO_FRONT) == LOW);
-
-
-        long startTime = micros();
-        while(digitalRead(ECHO_FRONT) == HIGH);
-        long travelTime = micros() - startTime;
-
-
-        int distance = travelTime * 10 / 58;
-
-        return distance;
-}
-
-int ultrasonicRight(){
-
-        digitalWrite(TRIG_RIGHT, HIGH);
-        delayMicroseconds(20);
-        digitalWrite(TRIG_RIGHT, LOW);
-
-
-        while(digitalRead(ECHO_RIGHT) == LOW);
-
-
-        long startTime = micros();
-        while(digitalRead(ECHO_RIGHT) == HIGH);
-        long travelTime = micros() - startTime;
-
-
-        int distance = travelTime   * 10 / 58;
-
-        return distance;
-}
 
 void setup(){
 	wiringPiSetup();
