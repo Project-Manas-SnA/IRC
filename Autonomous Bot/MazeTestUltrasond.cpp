@@ -169,6 +169,7 @@ void backward(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
+	stop();
 	updateCoOrdinate(-1);
 }
 
