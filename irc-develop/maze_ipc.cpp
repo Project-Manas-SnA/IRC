@@ -195,7 +195,7 @@ void forward(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,115);
+	softPwmWrite(pwmPinL,110);
 	softPwmWrite(pwmPinR,150);
 	while(pos_l<450){continue;}
 	stop();
