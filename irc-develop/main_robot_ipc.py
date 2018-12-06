@@ -498,6 +498,8 @@ if __name__ == "__main__":
    #start.controlInput(0)
    #start.stop()
    try:
+ #      start.forward()
+ #      print(start.getRobotX(), start.getRobotY())
        while True:
           time.sleep(1)
           start.junction()

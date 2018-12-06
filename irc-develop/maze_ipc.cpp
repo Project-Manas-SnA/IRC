@@ -200,7 +200,7 @@ void forward(){
 	while(pos_l<450){continue;}
 	stop();
 	usleep(200000);
-	cout<<pos_l<<"\n";
+//	cout<<pos_l<<"\n";
 	updateCoOrdinate(1);
 }
 
@@ -216,7 +216,7 @@ void rightTurn(){
 	stop();
 	rotateAxis(1);
 	usleep(1000000);
-	cout<<pos_l<<"\n";
+//	cout<<pos_l<<"\n";
 	distance();
 	Direction = --Direction ;
 	if (Direction == -1)
@@ -234,7 +234,7 @@ void leftTurn(){
 	stop();
 	rotateAxis(-1);
 	usleep(100000);
-	cout<<pos_l<<"\n";
+//	cout<<pos_l<<"\n";
 	distance();
 	Direction = (++Direction) % 4;
 }
