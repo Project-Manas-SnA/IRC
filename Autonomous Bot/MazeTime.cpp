@@ -196,13 +196,10 @@ void leftTurn(){
 
 void setup(){
 	wiringPiSetup();
-	pinMode(A_Left, INPUT);
 	pinMode(dirPin_r1, OUTPUT);
 	pinMode(dirPin_l1, OUTPUT);
 	pinMode(dirPin_r2, OUTPUT);
 	pinMode(dirPin_l2, OUTPUT);
-	pullUpDnControl(A_Left, PUD_UP);
-	wiringPiISR(A_Left,INT_EDGE_BOTH,Enc_A_Left);
 	softPwmCreate(pwmPinR, 0, 225);
 	softPwmCreate(pwmPinL, 0, 225);
 	pinMode(TRIG_FRONT, OUTPUT);
@@ -220,7 +217,7 @@ void setup(){
 int main(){
 	setup();
 	forward();
-	cout<<distx<<" "<<disty;
+	cout<<distx<<" "<<disty
 	return 0;
 }
 
