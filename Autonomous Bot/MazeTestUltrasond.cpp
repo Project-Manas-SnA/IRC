@@ -115,9 +115,8 @@ void forward(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
-	while(pos_l<350){continue;}
-	stop();
-	usleep(100000);
+	int current = ultrasonicFront();
+	while(ultrasondFront() - current < 200){continue;}
 	//cout<<pos_l<<"\t";
 	updateCoOrdinate(1);
 }
