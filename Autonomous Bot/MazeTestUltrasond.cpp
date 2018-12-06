@@ -176,7 +176,7 @@ void forward(){
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
 	int current = ultrasonicFront();
-	while(ultrasondFront() - current < 200){continue;}
+	while(ultrasonicFront() - current < 200){continue;}
 	//cout<<pos_l<<"\t";
 	updateCoOrdinate(1);
 }
