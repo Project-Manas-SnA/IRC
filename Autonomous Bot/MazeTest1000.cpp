@@ -43,13 +43,13 @@ int pwmVal_Right;
 int pos_l = 0;
 int pwmVal_Left;
 
-int distx=0, disty=0;
+float distx=0, disty=0;
 int x_bar=1, y_bar=1;
 int x = 1 ,y = 1;
 int Direction = 0;
 
-float circumference = 6.0 * 22 / 7.0;   //centimeter
-float cpr = 450.0;
+float circumference = 6.0 * 22.0 / 7.0;   //centimeter
+float cpr = 1000.0;
 int pwm = 150; 
 
 void stop(){
@@ -197,10 +197,10 @@ void forward(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,115);
 	softPwmWrite(pwmPinR,150);
-	while(pos_l<200){continue;}
+	while(pos_l<450){continue;}
 	stop();
-	usleep(100000);
-//	cout<<pos_l<<"\n";
+	usleep(200000);
+	cout<<pos_l<<"\n";
 	updateCoOrdinate(1);
 }
 
@@ -211,12 +211,12 @@ void rightTurn(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,75);
 	softPwmWrite(pwmPinR,75);
-	while(pos_l<260){continue;}
+	while(pos_l<530){continue;}
 	stop();
 	stop();
 	rotateAxis(1);
 	usleep(1000000);
-//	cout<<pos_l<<"\n";
+	cout<<pos_l<<"\n";
 	distance();
 	Direction = --Direction ;
 	if (Direction == -1)
@@ -230,11 +230,11 @@ void leftTurn(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,75);
 	softPwmWrite(pwmPinR,75);
-	while(pos_l<210){continue;}
+	while(pos_l<480){continue;}
 	stop();
 	rotateAxis(-1);
 	usleep(100000);
-//	cout<<pos_l<<"\n";
+	cout<<pos_l<<"\n";
 	distance();
 	Direction = (++Direction) % 4;
 }
@@ -263,48 +263,17 @@ void setup(){
 	digitalWrite(TRIG_RIGHT, LOW);
 }
 
-int main(int argc,char *argv[]){
+int main(){
 	setup();
-	int value=0;
-	string control_input = "";
-    bool quit = false;
-    int control;
-    while (!quit){
-        cin>>control_input;
-        if (control_input.compare("quit") == 0){
-            quit = true;
-        }
-        else
-        {
-        		control = stoi(control_input);
-	        	switch(control)
-	        	{
-	        		case 0:	forward();
-	        				break;
-	        		case 1:	leftTurn();
-	        				break;
-	        		case 2:	backward();
-	        				break;
-	        		case 3:	rightTurn();
-	        				break;
-	        		case 4:	stop();
-	        				break;
-	        		case 5:	cout<<distx<<endl;
-	        				break;
-	        		case 6: cout<<disty<<endl;
-	        				break;
-	        		case 7: cout<<Direction<<endl;
-	        				break;
-	        		case 8: cout<<ultrasonicFront()<<endl;
-	        				break;
-	        		case 9: cout<<ultrasonicLeft()<<endl;
-	        				break;
-	        		case 10:cout<<ultrasonicRight()<<endl;
-	        				break;
-	        	}
-        }
-        //if(control >= 0 && control <= 4)
-            //cin>>control_input;
-    }
+	forward();
+	forward();
+	rightTurn();
+	leftTurn();
+	cout<<"\n\n";
+	cout<<ultrasonicRight()<<"\n";
+	cout<<ultrasonicLeft()<<"\n";
+	cout<<ultrasonicFront()<<"\n";
+	cout<<distx<<" "<<disty<<"\n";
 	return 0;
 }
+

@@ -239,6 +239,9 @@ void setup(){
 
 int main(){
 	setup();
+	cout<<ultrasonicLeft()<<"\n";
+	cout<<ultrasonicRight()<<"\n";
+	cout<<ultrasonicFront()<<"\n";
 	return 0;
 }
 

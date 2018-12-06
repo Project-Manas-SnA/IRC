@@ -501,6 +501,7 @@ if __name__ == "__main__":
        while True:
           time.sleep(1)
           start.junction()
+          print(start.getRobotX(), start.getRobotY())
           if start.boxqr3[0] and not start.boxqr3[1] and start.boxp[1] and start.boxlb[1]:
               start.goal(start.boxqr3[2], start.boxqr3[3], start.boxqr3[4])
           elif start.boxqr5[0] and not start.boxqr5[1] and start.boxdb[1]:
@@ -510,7 +511,7 @@ if __name__ == "__main__":
           nx.write_gpickle(start.map, "test.gpickle")
 #          start.draw_graph(start.map)
 #          start.check()
-#          print(start.getLeft(), start.getFront(), start.getRight(), start.getTheta())
+#          print(start.getLeft(), start.getFront(), start.getRight(), start.getTheta(), start.getRobotX(), start.getRobotY())
           start.print()
    finally:
        proc.terminate()

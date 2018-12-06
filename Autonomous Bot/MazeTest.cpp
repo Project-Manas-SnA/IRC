@@ -268,7 +268,7 @@ int main(){
 	forward();
 	forward();
 	rightTurn();
-	leftTurn();
+	//leftTurn();
 	cout<<"\n\n";
 	cout<<ultrasonicRight()<<"\n";
 	cout<<ultrasonicLeft()<<"\n";
