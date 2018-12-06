@@ -85,6 +85,13 @@ void updateCoOrdinate(int i){
   else if((x_bar == 1 && y_bar == 1)|| (x_bar == -1 && y_bar == -1))
     disty = disty + i*(distance() * x_bar);
 }
+void safeStop(int a){
+  softPwmWrite(pwmPinR,0);
+  softPwmWrite(pwmPinL,0);
+  softPwmWrite(pwmPinR,0);
+  softPwmWrite(pwmPinL,0);
+  cout<<"+++++++++++++++++";
+}
 
 int ultrasonicLeft(){
 
@@ -241,6 +248,7 @@ void setup(){
 	digitalWrite(TRIG_FRONT, LOW);
 	digitalWrite(TRIG_LEFT, LOW);
 	digitalWrite(TRIG_RIGHT, LOW);
+	signal(SIGINT,safeStop);
 }
 
 int main(){
