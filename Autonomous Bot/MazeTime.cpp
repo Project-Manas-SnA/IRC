@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include"wiringPi.h"
 #include<stdio.h>
@@ -12,7 +11,7 @@ using namespace std;
 
 /*******PINS Left*****
 0  * 1 * * * * 6 * * 0 
-1  * 1 2 3 4 5 6 7 8 9 
+1  * 1 2 3 4 5 6 7 8 9 current
 2  0 * * * * * 6 7 8 9 
 3  * 1
 *********************/
