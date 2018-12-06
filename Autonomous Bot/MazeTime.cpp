@@ -217,7 +217,7 @@ void setup(){
 int main(){
 	setup();
 	forward();
-	cout<<distx<<" "<<disty
+	cout<<distx<<" "<<disty;
 	return 0;
 }
 
