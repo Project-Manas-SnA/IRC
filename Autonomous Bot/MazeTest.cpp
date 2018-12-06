@@ -49,7 +49,7 @@ int x = 1 ,y = 1;
 int Direction = 0;
 
 float circumference = 6.0 * 22 / 7.0;   //centimeter
-float cpr = 750.0;
+float cpr = 450.0;
 int pwm = 150; 
 
 void stop(){
@@ -148,7 +148,7 @@ void updateCoOrdinate(int i){
     disty = disty + i*(distance() * x_bar);
 }
 void adjust(){
-	if (ultrasonicLeft()>70) //move little towards left
+	if (ultrasonicRight() - ultrasonicLeft() > 25) //move little towards left
 	{
 		digitalWrite(dirPin_l1,HIGH);
 		digitalWrite(dirPin_r1,HIGH);
@@ -156,11 +156,13 @@ void adjust(){
 		digitalWrite(dirPin_r2,LOW);
 		softPwmWrite(pwmPinL,75);
 		softPwmWrite(pwmPinR,75);
-		while(pos_l<50){continue;}
-		//usleep(100000);
+		//while(pos_l<50){continue;}
+		usleep(100000);
+		distance();
 		stop();
+		cout<<"Left adjust";
 	}
-	else if (ultrasonicRight()>70)    //move lttle towards right;
+	else if (ultrasonicLeft() - ultrasonicRight() > 25)    //move lttle towards right;
 	{
 		digitalWrite(dirPin_l1,LOW);
 		digitalWrite(dirPin_r1,LOW);
@@ -168,9 +170,10 @@ void adjust(){
 		digitalWrite(dirPin_r2,HIGH);
 		softPwmWrite(pwmPinL,75);
 		softPwmWrite(pwmPinR,75);
-		while(pos_l<50){continue;}
-		//usleep(100000);
+		//while(pos_l<50){continue;}
+		usleep(100000);
 		stop();
+		cout<<"Right adjust";
 	}
 }
 
@@ -181,7 +184,7 @@ void backward(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
-	while(pos_l<350){continue;}
+	while(pos_l<200){continue;}
 	stop();
 	usleep(100000);
 	updateCoOrdinate(-1);
@@ -192,9 +195,9 @@ void forward(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,150);
+	softPwmWrite(pwmPinL,115);
 	softPwmWrite(pwmPinR,150);
-	while(pos_l<350){continue;}
+	while(pos_l<200){continue;}
 	stop();
 	usleep(100000);
 	cout<<pos_l<<"\n";
@@ -208,10 +211,12 @@ void rightTurn(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,75);
 	softPwmWrite(pwmPinR,75);
-	while(pos_l<475){continue;}
+	while(pos_l<260){continue;}
+	stop();
 	stop();
 	rotateAxis(1);
-	usleep(100000);
+	usleep(1000000);
+	cout<<pos_l<<"\n";
 	distance();
 	Direction = --Direction ;
 	if (Direction == -1)
@@ -225,10 +230,11 @@ void leftTurn(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,75);
 	softPwmWrite(pwmPinR,75);
-	while(pos_l<475){continue;}
+	while(pos_l<210){continue;}
 	stop();
 	rotateAxis(-1);
 	usleep(100000);
+	cout<<pos_l<<"\n";
 	distance();
 	Direction = (++Direction) % 4;
 }
@@ -259,10 +265,15 @@ void setup(){
 
 int main(){
 	setup();
-	while(distx < 50)
-	{
-		forward();
-	}
+	forward();
+	forward();
+	rightTurn();
+	leftTurn();
+	cout<<"\n\n";
+	cout<<ultrasonicRight()<<"\n";
+	cout<<ultrasonicLeft()<<"\n";
+	cout<<ultrasonicFront()<<"\n";
+	cout<<distx<<" "<<disty<<"\n";
 	return 0;
 }
 
