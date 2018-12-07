@@ -92,11 +92,11 @@ def drive():
                 GPIO.output(directionRight,GPIO.LOW)
                 pwmRight.stop()
 
-        elif event.code == 4:
-            if event.value == 589833:
+        elif event.code == 312:
+            if event.value == 1:
                 Arm = True
                 Motor = False
-		print("Mode Changed")
+                print("Arm Mode")
                 break;
 
 def arm():
@@ -120,70 +120,86 @@ def arm():
             elif event.value == 1:
                 pwm.set_pwm(1, 150, 650 )
 
-        if event.code == 04:
+        if event.code == 304:
 
-            if event.value == 589825 :
+            if event.value == 0 :
                 angle1 = angle1 + steps
                 if angle1>=650:
                     angle1 = 650
                 pwm.set_pwm(2, 0, angle1)
                 time.sleep(0.5)
-		
-            if event.value == 589827:
+
+		if event.code == 306:
+            
+            if event.value == 1:
                 angle1 = angle1 - steps
                 if angle1<150:
                     angle1 = 150
                 pwm.set_pwm(2, 0, angle1)
                 time.sleep(0.5)
+        
+        if event.code == 307:
 
-            if event.value == 589828:
+            if event.value == 1:
                 angle2 = angle2 + steps
                 if angle2>=650:
                     angle2 = 650
                 pwm.set_pwm(3, 0, angle2)
                 time.sleep(0.5)
 
-            if event.value == 589826:
+        if event.code == 305:
+
+            if event.value == 1:
                 angle2 = angle2 - steps
                 if angle2<150:
                     angle2 = 150
                 pwm.set_pwm(3, 0, angle2)
                 time.sleep(0.5)
-
-            if event.value == 589831:
+        
+        if event.code == 310
+        
+            if event.value == 1:
                 angle3 = angle3 + steps
                 if angle1>=650:
                     angle3 = 650
                 pwm.set_pwm(4, 0, angle3)
                 time.sleep(0.5)
-
-            if event.value == 589832:
+        
+        if event.code == 311
+        
+            if event.value == 1:
                 angle3 = angle3 - steps
                 if angle3<150:
                     angle3 = 150
                 pwm.set_pwm(4, 0, angle3)
                 time.sleep(0.5)
+        
+        if event.code == 309:
+        
+            if event.value == 1:
+                GPIO.output(DIR, CW)
+    
+                for x in range(stepper_steps):
+                    GPIO.output(STEP, GPIO.HIGH)
+                    sleep(delay)
+                    GPIO.output(STEP, GPIO.LOW)
+    
+        if event.code == 308:
+                if event.value == 1:
+                GPIO.output(DIR, CCW)
 
-                if event.value == 589830:
-                    GPIO.output(DIR, CW)
+                for x in range(stepper_steps):
+                    GPIO.output(STEP, GPIO.HIGH)
+                    sleep(delay)
+                    GPIO.output(STEP, GPIO.LOW)
+                    sleep(delay)
 
-                    for x in range(stepper_steps):
-                        GPIO.output(STEP, GPIO.HIGH)
-                        sleep(delay)
-                        GPIO.output(STEP, GPIO.LOW)
-                if event.value == 589829:
-                    GPIO.output(DIR, CCW)
-
-                    for x in range(stepper_steps):
-                        GPIO.output(STEP, GPIO.HIGH)
-                        sleep(delay)
-                        GPIO.output(STEP, GPIO.LOW)
-                        sleep(delay)
-
-
-            if event.value == 589834:
+        if event.code == 313
+            
+            if event.value == 1:
                 Motor = True
                 Arm = False
+                print("Drive Mode")
                 break
 
 
