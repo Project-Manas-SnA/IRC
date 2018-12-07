@@ -10,28 +10,33 @@
 using namespace std;
 
 /*******PINS Left*****
-0  * 1 * * * * 6 * * 0 
-1  * 1 2 3 4 5 6 7 8 9 current
+0  * 1 * * 4 5 * * * * 
+1  * * 2 3 4 5 6 7 8 9
 2  0 * * * * * 6 7 8 9 
-3  * 1
+3  * *
 *********************/
 
 /*Define*/
 
-#define TRIG_FRONT 30  //27
-#define ECHO_FRONT 21  //29
-#define TRIG_RIGHT 22  //31
-#define ECHO_RIGHT 23  //33
-#define TRIG_LEFT  24  //35
-#define ECHO_LEFT  25  //37
+#define TRIG_RIGHT_FRONT 6   //22
+#define ECHO_RIGHT_FRONT 10  //24
+#define TRIG_LEFT_FRONT  11  //26
+#define ECHO_LEFT_FRONT  31  //28
 
-#define  pwmPinR   0   //3
-#define  dirPin_r1 3   //7
-#define  dirPin_r2 2   //5	
+#define TRIG_FRONT       30  //27
+#define ECHO_FRONT       21  //29
+#define TRIG_RIGHT       22  //31
+#define ECHO_RIGHT       23  //33
+#define TRIG_LEFT        24  //35
+#define ECHO_LEFT        25  //37
 
-#define pwmPinL    8   //11
-#define dirPin_l1  7   //15
-#define dirPin_l2  9   //13
+#define  pwmPinR         0   //3
+#define  dirPin_r1       3   //7
+#define  dirPin_r2       2   //5	
+
+#define pwmPinL          8   //11
+#define dirPin_l1        7   //15
+#define dirPin_l2        9   //13
 
 /*GOBAL VARIABLE*/
 
@@ -70,6 +75,46 @@ void safeStop(int a){
   softPwmWrite(pwmPinR,0);
   softPwmWrite(pwmPinL,0);
   usleep(100000);
+}
+
+int ultrasonicFrontLeft(){
+
+	digitalWrite(TRIG_LEFT_FRONT, HIGH);
+	delayMicroseconds(20);
+	digitalWrite(TRIG_LEFT_FRONT, LOW);
+
+
+	while(digitalRead(ECHO_LEFT_FRONT) == LOW);
+
+
+	long startTime = micros();
+	while(digitalRead(ECHO_LEFT_FRONT) == HIGH);
+	long travelTime = micros() - startTime;
+
+
+	int distance = travelTime * 10 / 58;
+
+	return distance;
+}
+
+int ultrasonicFrontRight(){
+
+        digitalWrite(TRIG_RIGHT_FRONT, HIGH);
+        delayMicroseconds(20);
+        digitalWrite(TRIG_RIGHT_FRONT, LOW);
+
+
+        while(digitalRead(ECHO_RIGHT_FRONT) == LOW);
+
+
+        long startTime = micros();
+        while(digitalRead(ECHO_RIGHT_FRONT) == HIGH);
+        long travelTime = micros() - startTime;
+
+
+        int distance = travelTime   * 10 / 58;
+
+        return distance;
 }
 
 int ultrasonicLeft(){
@@ -177,7 +222,9 @@ void rightTurn(){
 	stop();
 	usleep(100000);
 	rotateAxis(1);
-	Direction = (++Direction) % 4;
+	Direction = --Direction ;
+	if (Direction == -1)
+		Direction = 3;
 }
 
 void leftTurn(){
@@ -191,9 +238,7 @@ void leftTurn(){
 	stop();
 	usleep(100000);
 	rotateAxis(-1);
-	Direction = --Direction ;
-	if (Direction == -1)
-		Direction = 3;
+	Direction = (++Direction) % 4;
 }
 
 
@@ -211,7 +256,13 @@ void setup(){
 	pinMode(ECHO_RIGHT, INPUT);
 	pinMode(TRIG_LEFT, OUTPUT);
 	pinMode(ECHO_LEFT, INPUT);
+	pinMode(TRIG_RIGHT_FRONT, OUTPUT);
+	pinMode(ECHO_RIGHT_FRONT, INPUT);
+	pinMode(TRIG_LEFT_FRONT, OUTPUT);
+	pinMode(ECHO_LEFT_FRONT, INPUT);
 	digitalWrite(TRIG_FRONT, LOW);
+	digitalWrite(TRIG_LEFT_FRONT, LOW);
+	digitalWrite(TRIG_RIGHT_FRONT, LOW);
 	digitalWrite(TRIG_LEFT, LOW);
 	digitalWrite(TRIG_RIGHT, LOW);
 	signal(SIGINT,safeStop);
@@ -219,9 +270,7 @@ void setup(){
 
 int main(){
 	setup();
-	rightTurn();
-	forward();
-	cout<<distx<<" "<<disty;
+
 	return 0;
 }
 
