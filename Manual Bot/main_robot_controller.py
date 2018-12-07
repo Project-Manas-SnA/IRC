@@ -130,7 +130,7 @@ def arm():
                 time.sleep(0.5)
 
 		if event.code == 306:
-            
+
             if event.value == 1:
                 angle1 = angle1 - steps
                 if angle1<150:
