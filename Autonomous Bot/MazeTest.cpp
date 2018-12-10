@@ -48,7 +48,6 @@ int x_bar=1, y_bar=1;
 int x = 1 ,y = 1;
 int Direction = 0;
 
-int TurnTime = 280000;
 float circumference = 6.0 * 22 / 7.0;   //centimeter
 float cpr = 750.0;
 int pwm = 150; 
@@ -104,7 +103,6 @@ void backward(){
 	while(pos_l<350){continue;}
 	stop();
 	usleep(100000);
-	//cout<<pos_l<<"\t";
 	updateCoOrdinate(-1);
 }
 
@@ -118,7 +116,6 @@ void forward(){
 	while(pos_l<350){continue;}
 	stop();
 	usleep(100000);
-	//cout<<pos_l<<"\t";
 	updateCoOrdinate(1);
 }
 
@@ -133,11 +130,10 @@ void rightTurn(){
 	stop();
 	rotateAxis(1);
 	usleep(100000);
-	//cout<<"\n"<<pos_l<<"\t";
 	distance();
-	cout<<pos_l;
-	Direction = (++Direction) % 4;
-	usleep(50000);
+	Direction = --Direction ;
+	if (Direction == -1)
+		Direction = 3;
 }
 
 void leftTurn(){
@@ -147,16 +143,12 @@ void leftTurn(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,75);
 	softPwmWrite(pwmPinR,75);
-	while(pos_l<455){continue;}
+	while(pos_l<475){continue;}
 	stop();
 	rotateAxis(-1);
 	usleep(100000);
-	//cout<<"\n"<<pos_l<<"\t";
 	distance();
-	Direction = --Direction ;
-	if (Direction == -1)
-		Direction = 3;
-	usleep(50000);
+	Direction = (++Direction) % 4;
 }
 
 int ultrasonicLeft(){
