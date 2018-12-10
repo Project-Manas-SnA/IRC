@@ -173,14 +173,6 @@ void adjust(){
 		stop();
 	}
 }
-void stop(){
-	digitalWrite(dirPin_l1,LOW);
-	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,LOW);
-	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,0);
-	softPwmWrite(pwmPinR,0);
-}
 
 void backward(){
 	digitalWrite(dirPin_l1,LOW);
