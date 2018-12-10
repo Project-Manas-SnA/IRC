@@ -52,47 +52,20 @@ int pwmVal_Left;
 
 
 void Enc_A_Right(){
-	AState_Right = digitalRead(A_Right);
-	BState_Right = digitalRead(B_Right);
-
-	if(AState_Right==true)
-		pos_r+=(BState_Right==LOW)?(1):(-1);
-
-	else
-		pos_r+=(BState_Right==HIGH)?(1):(-1);
-
+pos_r++;
 }
 
 void Enc_B_Right(){
-	AState_Right = digitalRead(A_Right);
-	BState_Right = digitalRead(B_Right);
-
-	if(BState_Right==true)
-		pos_r+=(AState_Right==HIGH)?(1):(-1);
-	else
-		pos_r+=(AState_Right==LOW)?(1):(-1);
+pos_r++;
 }
 
 void Enc_A_Left(){
-	AState_Left = digitalRead(A_Left);
-	BState_Left = digitalRead(B_Left);
-
-
-	if(AState_Left==true)
-		pos_l+=(BState_Left==LOW)?(1):(-1);
-	else
-		pos_l+=(BState_Left==HIGH)?(1):(-1);
+pos_l++;
 
 }
 
 void Enc_B_Left(){
-	AState_Left = digitalRead(A_Left);
-	BState_Left = digitalRead(B_Left);
-
-	if(BState_Left==true)
-		pos_l+=(AState_Left==HIGH)?(1):(-1);
-	else
-		pos_l+=(AState_Left==LOW)?(1):(-1);
+pos_l++;
 
 }
 
