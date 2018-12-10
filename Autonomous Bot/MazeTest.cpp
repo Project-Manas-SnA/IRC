@@ -56,10 +56,6 @@ void Enc_A_Left(){
 	pos_l++;
 }
 
-void Enc_B_Left(){
-	pos_l++;
-}
-
 float leftDistance(){
 	float l = circumference * ( pos_l / cpr ); //distance travelled in cm
 	pos_l = 0;
@@ -142,6 +138,7 @@ void forward(){
 	while(pos_l<350){continue;}
 	stop();
 	usleep(100000);
+	cout<<pos_l<<"\n";
 	adjust();
 	updateCoOrdinate(1);
 }
@@ -262,6 +259,10 @@ void setup(){
 
 int main(){
 	setup();
+	while(distx < 50)
+	{
+		forward();
+	}
 	return 0;
 }
 
