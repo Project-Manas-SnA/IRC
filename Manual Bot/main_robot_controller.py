@@ -158,7 +158,7 @@ def arm():
         if event.code == 310:
         
             if event.value == 1:
-                angle3 = angle3 + steps
+                angle3 = angle3 + 50
                 if angle1>=650:
                     angle3 = 650
                 pwm.set_pwm(4, 0, angle3)
@@ -168,7 +168,7 @@ def arm():
         if event.code == 311:
         
             if event.value == 1:
-                angle3 = angle3 - steps
+                angle3 = angle3 - 50
                 if angle3<150:
                     angle3 = 150
                 pwm.set_pwm(4, 0, angle3)
