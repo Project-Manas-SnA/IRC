@@ -49,7 +49,7 @@ time.sleep(2)
 
 def drive():
 
-    global Arm, gamepad, pwmLeft, directionLeft, pwmRight, directionRight, speed
+    global Motor, Arm, gamepad, pwmLeft, directionLeft, pwmRight, directionRight, speed
     print("Entered 1")
     for event in gamepad.read_loop():
 
@@ -101,7 +101,7 @@ def drive():
 
 def arm():
 
-    global gamepad, Motor, angle1, angle2, angle3, pwm, DIR, CW, CCW, SPR, delay,STEP, steps, SuctionPin
+    global gamepad, Motor, Arm, angle1, angle2, angle3, pwm, DIR, CW, CCW, SPR, delay,STEP, steps, SuctionPin
     print("Entered 2")
     for event in gamepad.read_loop():
 
@@ -135,7 +135,7 @@ def arm():
                 	if angle1<150:
                     		angle1 = 150
                		pwm.set_pwm(2, 0, angle1)
-                	time.sleep(0.5)
+                	time.sleep(0.2)
         
         if event.code == 307:
 
@@ -144,7 +144,7 @@ def arm():
                 if angle2>=650:
                     angle2 = 650
                 pwm.set_pwm(3, 0, angle2)
-                time.sleep(0.5)
+                time.sleep(0.2)
 
         if event.code == 305:
 
@@ -153,7 +153,7 @@ def arm():
                 if angle2<150:
                     angle2 = 150
                 pwm.set_pwm(3, 0, angle2)
-                time.sleep(0.5)
+                time.sleep(0.2)
         
         if event.code == 310:
         
@@ -162,7 +162,7 @@ def arm():
                 if angle1>=650:
                     angle3 = 650
                 pwm.set_pwm(4, 0, angle3)
-                time.sleep(0.5)
+                time.sleep(0.2)
         
         if event.code == 311:
         
@@ -171,7 +171,7 @@ def arm():
                 if angle3<150:
                     angle3 = 150
                 pwm.set_pwm(4, 0, angle3)
-                time.sleep(0.5)
+                time.sleep(0.2)
         
         if event.code == 309:
         
