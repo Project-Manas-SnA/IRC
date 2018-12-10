@@ -163,6 +163,7 @@ def arm():
                     angle3 = 650
                 pwm.set_pwm(4, 0, angle3)
                 time.sleep(0.2)
+                print("base motor +")
         
         if event.code == 311:
         
@@ -172,6 +173,7 @@ def arm():
                     angle3 = 150
                 pwm.set_pwm(4, 0, angle3)
                 time.sleep(0.2)
+                print("base motor -")
         
         if event.code == 309:
         
