@@ -52,6 +52,14 @@ float circumference = 6.0 * 22 / 7.0;   //centimeter
 float cpr = 750.0;
 int pwm = 150; 
 
+void stop(){
+	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_r1,LOW);
+	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_r2,LOW);
+	softPwmWrite(pwmPinL,0);
+	softPwmWrite(pwmPinR,0);
+}
 int ultrasonicLeft(){
 
 	digitalWrite(TRIG_LEFT, HIGH);
