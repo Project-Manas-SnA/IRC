@@ -40,11 +40,11 @@ delay = .005
 GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
 
-pwm.set_pwm(2, 0, 500 )
+pwm.set_pwm(2, 0, 400 )
 time.sleep(2)
-pwm.set_pwm(3, 0, 500 )
+pwm.set_pwm(3, 0, 400 )
 time.sleep(2)
-pwm.set_pwm(4, 0, 500 )
+pwm.set_pwm(4, 0, 300 )
 time.sleep(2)
 
 def drive():
@@ -116,9 +116,9 @@ def arm():
         elif event.code == 16:
 
             if event.value == -1:
-                pwm.set_pwm(1, 150, 650 )                     #Dart Released
+                pwm.set_pwm(1, 0, 150 )                     #Dart Released
             elif event.value == 1:
-                pwm.set_pwm(1, 150, 650 )
+                pwm.set_pwm(1, 0, 650 )
 
         if event.code == 304:
 
@@ -156,7 +156,7 @@ def arm():
                 pwm.set_pwm(3, 0, angle2)
                 time.sleep(0.5)
         
-        if event.code == 310
+        if event.code == 310:
         
             if event.value == 1:
                 angle3 = angle3 + steps
@@ -165,7 +165,7 @@ def arm():
                 pwm.set_pwm(4, 0, angle3)
                 time.sleep(0.5)
         
-        if event.code == 311
+        if event.code == 311:
         
             if event.value == 1:
                 angle3 = angle3 - steps
@@ -185,7 +185,7 @@ def arm():
                     GPIO.output(STEP, GPIO.LOW)
     
         if event.code == 308:
-                if event.value == 1:
+            if event.value == 1:
                 GPIO.output(DIR, CCW)
 
                 for x in range(stepper_steps):
@@ -194,7 +194,7 @@ def arm():
                     GPIO.output(STEP, GPIO.LOW)
                     sleep(delay)
 
-        if event.code == 313
+        if event.code == 313:
             
             if event.value == 1:
                 Motor = True
