@@ -81,7 +81,7 @@ class IRC:
         self.theta = (self.theta + 1) % 4
 #        while not self.getTheta() == self.getTheta():
         self.controlInput(1)
-        time.sleep(2)
+        time.sleep(5)
         rpi.cleanup()
     
     def goleft(self):
@@ -90,7 +90,7 @@ class IRC:
             # robotgoleft()
         self.controlInput(1)
         rpi.cleanup()
-        time.sleep(2)
+        time.sleep(5)
         self.forward()
         # self.forward()
 
@@ -98,7 +98,7 @@ class IRC:
         # robotMoveForward()
         self.controlInput(0)
         rpi.cleanup()
-        time.sleep(2)
+        time.sleep(5)
         #self.stop()        	
 
     def goright(self):
@@ -109,7 +109,7 @@ class IRC:
             # robotgoright()
         self.controlInput(3)
         rpi.cleanup()
-        time.sleep(2)
+        time.sleep(5)
         self.forward()
         # self.forward()
 
@@ -119,7 +119,7 @@ class IRC:
             self.theta = 3
         #while not self.theta == self.getTheta():
         self.controlInput(3)
-        time.sleep(2)
+        time.sleep(5)
         rpi.cleanup()   
 
     def stop(self):
@@ -498,12 +498,9 @@ if __name__ == "__main__":
    #start.controlInput(0)
    #start.stop()
    try:
- #      start.forward()
- #      print(start.getRobotX(), start.getRobotY())
        while True:
           time.sleep(1)
           start.junction()
-          print(start.getRobotX(), start.getRobotY())
           if start.boxqr3[0] and not start.boxqr3[1] and start.boxp[1] and start.boxlb[1]:
               start.goal(start.boxqr3[2], start.boxqr3[3], start.boxqr3[4])
           elif start.boxqr5[0] and not start.boxqr5[1] and start.boxdb[1]:
@@ -513,7 +510,7 @@ if __name__ == "__main__":
           nx.write_gpickle(start.map, "test.gpickle")
 #          start.draw_graph(start.map)
 #          start.check()
-#          print(start.getLeft(), start.getFront(), start.getRight(), start.getTheta(), start.getRobotX(), start.getRobotY())
+#          print(start.getLeft(), start.getFront(), start.getRight(), start.getTheta())
           start.print()
    finally:
        proc.terminate()
