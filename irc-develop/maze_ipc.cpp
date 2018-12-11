@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include"wiringPi.h"
 #include<stdio.h>
@@ -195,12 +194,12 @@ void forward(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,110);
+	softPwmWrite(pwmPinL,115);
 	softPwmWrite(pwmPinR,150);
-	while(pos_l<450){continue;}
+	while(pos_l<850){continue;}
 	stop();
 	usleep(200000);
-	//cout<<pos_l<<"\n";
+//	cout<<pos_l<<"\n";
 	updateCoOrdinate(1);
 }
 
@@ -209,14 +208,14 @@ void rightTurn(){
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,75);
+	softPwmWrite(pwmPinL,100);
 	softPwmWrite(pwmPinR,75);
 	while(pos_l<530){continue;}
 	stop();
 	stop();
 	rotateAxis(1);
 	usleep(1000000);
-	//cout<<pos_l<<"\n";
+//	cout<<pos_l<<"\n";
 	distance();
 	Direction = --Direction ;
 	if (Direction == -1)
@@ -228,13 +227,13 @@ void leftTurn(){
 	digitalWrite(dirPin_r1,HIGH);
 	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,75);
+	softPwmWrite(pwmPinL,100);
 	softPwmWrite(pwmPinR,75);
-	while(pos_l<480){continue;}
+	while(pos_l<500){continue;}
 	stop();
 	rotateAxis(-1);
 	usleep(100000);
-	//cout<<pos_l<<"\n";
+//	cout<<pos_l<<"\n";
 	distance();
 	Direction = (++Direction) % 4;
 }
@@ -262,6 +261,7 @@ void setup(){
 	digitalWrite(TRIG_LEFT, LOW);
 	digitalWrite(TRIG_RIGHT, LOW);
 }
+
 
 int main(int argc,char *argv[]){
 	setup();
