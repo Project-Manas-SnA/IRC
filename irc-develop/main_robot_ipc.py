@@ -81,7 +81,7 @@ class IRC:
         self.theta = (self.theta + 1) % 4
 #        while not self.getTheta() == self.getTheta():
         self.controlInput(1)
-        time.sleep(5)
+        time.sleep(2)
         rpi.cleanup()
     
     def goleft(self):
@@ -90,7 +90,7 @@ class IRC:
             # robotgoleft()
         self.controlInput(1)
         rpi.cleanup()
-        time.sleep(5)
+        time.sleep(2)
         self.forward()
         # self.forward()
 
@@ -98,7 +98,7 @@ class IRC:
         # robotMoveForward()
         self.controlInput(0)
         rpi.cleanup()
-        time.sleep(5)
+        time.sleep(2)
         #self.stop()        	
 
     def goright(self):
@@ -109,7 +109,7 @@ class IRC:
             # robotgoright()
         self.controlInput(3)
         rpi.cleanup()
-        time.sleep(5)
+        time.sleep(2)
         self.forward()
         # self.forward()
 
@@ -119,7 +119,7 @@ class IRC:
             self.theta = 3
         #while not self.theta == self.getTheta():
         self.controlInput(3)
-        time.sleep(5)
+        time.sleep(2)
         rpi.cleanup()   
 
     def stop(self):
