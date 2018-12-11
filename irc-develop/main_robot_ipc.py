@@ -41,10 +41,10 @@ class IRC:
         proc.stdin.flush()
 
         if control == 5:
-            return int(proc.stdout.readline().decode('UTF-8').rstrip("\n"))
+            return float(proc.stdout.readline().decode('UTF-8').rstrip("\n"))
 
         elif control == 6:
-            return int(proc.stdout.readline().decode('UTF-8').rstrip("\n"))
+            return float(proc.stdout.readline().decode('UTF-8').rstrip("\n"))
 
         elif control == 7:
             return int(proc.stdout.readline().decode('UTF-8').rstrip("\n"))

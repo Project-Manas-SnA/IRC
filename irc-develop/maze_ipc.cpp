@@ -43,13 +43,13 @@ int pwmVal_Right;
 int pos_l = 0;
 int pwmVal_Left;
 
-int distx=0, disty=0;
+float distx=0, disty=0;
 int x_bar=1, y_bar=1;
 int x = 1 ,y = 1;
 int Direction = 0;
 
-float circumference = 6.0 * 22 / 7.0;   //centimeter
-float cpr = 450.0;
+float circumference = 6.0 * 22.0 / 7.0;   //centimeter
+float cpr = 1000.0;
 int pwm = 150; 
 
 void stop(){
@@ -197,10 +197,10 @@ void forward(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,115);
 	softPwmWrite(pwmPinR,150);
-	while(pos_l<200){continue;}
+	while(pos_l<450){continue;}
 	stop();
-	usleep(100000);
-//	cout<<pos_l<<"\n";
+	usleep(200000);
+	cout<<pos_l<<"\n";
 	updateCoOrdinate(1);
 }
 
@@ -211,12 +211,12 @@ void rightTurn(){
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,75);
 	softPwmWrite(pwmPinR,75);
-	while(pos_l<260){continue;}
+	while(pos_l<530){continue;}
 	stop();
 	stop();
 	rotateAxis(1);
 	usleep(1000000);
-//	cout<<pos_l<<"\n";
+	cout<<pos_l<<"\n";
 	distance();
 	Direction = --Direction ;
 	if (Direction == -1)
@@ -230,11 +230,11 @@ void leftTurn(){
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,75);
 	softPwmWrite(pwmPinR,75);
-	while(pos_l<210){continue;}
+	while(pos_l<480){continue;}
 	stop();
 	rotateAxis(-1);
 	usleep(100000);
-//	cout<<pos_l<<"\n";
+	cout<<pos_l<<"\n";
 	distance();
 	Direction = (++Direction) % 4;
 }
