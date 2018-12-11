@@ -135,7 +135,7 @@ def arm():
                 if angle1<150:
                     angle1 = 150
             pwm.set_pwm(2, 0, angle1)
-               time.sleep(1)
+            time.sleep(1)
         
         if event.code == 307:
 
