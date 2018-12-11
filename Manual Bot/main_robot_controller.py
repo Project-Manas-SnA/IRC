@@ -134,8 +134,8 @@ def arm():
                 angle1 = angle1 - steps
                 if angle1<150:
                     angle1 = 150
-            pwm.set_pwm(2, 0, angle1)
-            time.sleep(1)
+                pwm.set_pwm(2, 0, angle1)
+                time.sleep(1)
         
         if event.code == 307:
 
@@ -143,9 +143,9 @@ def arm():
                 angle2 = angle2 + steps
                	if angle2>=650:
                     angle2 = 650
-            pwm.set_pwm(3, 0, angle2)
-            time.sleep(1)
-            print("lin2")
+                pwm.set_pwm(3, 0, angle2)
+                time.sleep(1)
+                print("lin2")
 
         if event.code == 305:
 
@@ -156,6 +156,7 @@ def arm():
                 pwm.set_pwm(3, 0, angle2)
                 time.sleep(1)
                 print("link 2") 
+        
         if event.code == 310:
         
             if event.value == 1:
