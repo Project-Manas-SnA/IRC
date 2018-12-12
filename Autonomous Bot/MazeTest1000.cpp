@@ -148,32 +148,35 @@ void updateCoOrdinate(int i){
     disty = disty + i*(distance() * x_bar);
 }
 void adjust(){
-	if (ultrasonicRight() - ultrasonicLeft() > 25) //move little towards left
+	if (ultrasonicRight() < 100 && ultrasonicLeft() < 100)
 	{
-		digitalWrite(dirPin_l1,HIGH);
-		digitalWrite(dirPin_r1,HIGH);
-		digitalWrite(dirPin_l2,LOW);
-		digitalWrite(dirPin_r2,LOW);
-		softPwmWrite(pwmPinL,75);
-		softPwmWrite(pwmPinR,75);
-		//while(pos_l<50){continue;}
-		usleep(100000);
-		distance();
-		stop();
-		cout<<"Left adjust";
-	}
-	else if (ultrasonicLeft() - ultrasonicRight() > 25)    //move lttle towards right;
-	{
-		digitalWrite(dirPin_l1,LOW);
-		digitalWrite(dirPin_r1,LOW);
-		digitalWrite(dirPin_l2,HIGH);
-		digitalWrite(dirPin_r2,HIGH);
-		softPwmWrite(pwmPinL,75);
-		softPwmWrite(pwmPinR,75);
-		//while(pos_l<50){continue;}
-		usleep(100000);
-		stop();
-		cout<<"Right adjust";
+		if (ultrasonicRight() - ultrasonicLeft() > 25) //move little towards left
+		{
+			digitalWrite(dirPin_l1,HIGH);
+			digitalWrite(dirPin_r1,HIGH);
+			digitalWrite(dirPin_l2,LOW);
+			digitalWrite(dirPin_r2,LOW);
+			softPwmWrite(pwmPinL,75);
+			softPwmWrite(pwmPinR,75);
+			//while(pos_l<50){continue;}
+			usleep(100000);
+			distance();
+			stop();
+			cout<<"Left adjust";
+		}
+		else if (ultrasonicLeft() - ultrasonicRight() > 25)    //move lttle towards right;
+		{
+			digitalWrite(dirPin_l1,LOW);
+			digitalWrite(dirPin_r1,LOW);
+			digitalWrite(dirPin_l2,HIGH);
+			digitalWrite(dirPin_r2,HIGH);
+			softPwmWrite(pwmPinL,75);
+			softPwmWrite(pwmPinR,75);
+			//while(pos_l<50){continue;}
+			usleep(100000);
+			stop();
+			cout<<"Right adjust";
+		}
 	}
 }
 
@@ -267,8 +270,7 @@ int main(){
 	setup();
 	forward();
 	forward();
-	rightTurn();
-	leftTurn();
+	adjust();
 	cout<<"\n\n";
 	cout<<ultrasonicRight()<<"\n";
 	cout<<ultrasonicLeft()<<"\n";
