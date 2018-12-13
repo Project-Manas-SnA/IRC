@@ -272,12 +272,12 @@ void setup(){
 
 int main(){
 	setup();
-	forward();
-	forward();
-	forward();
-	forward();
-	leftTurn();
-	rightTurn();
+//	forward();
+//	forward();
+//	forward();
+//	forward();
+//	leftTurn();
+//	rightTurn();
 //	adjust();
 	cout<<"\n\n";
 	cout<<ultrasonicRight()<<"\n";

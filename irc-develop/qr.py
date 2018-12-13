@@ -5,4 +5,5 @@ def decode(image):
 
   for obj in decodedObjects:
     if obj.type == "QRCODE":
-      return obj.data
+        print(obj.type)
+        return obj.data

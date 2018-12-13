@@ -145,7 +145,7 @@ void updateCoOrdinate(int i){
 
   else if((x_bar == 1 && y_bar == 1)|| (x_bar == -1 && y_bar == -1))
     disty = disty + i*(distance() * x_bar);
-}
+}/*
 void adjust(){
 	if(ultrasonicLeft() < 100 && ultrasonicRight < 100)
 	{
@@ -177,7 +177,7 @@ void adjust(){
 			cout<<"Right adjust";
 		}
 	}
-}
+}*/
 
 void backward(){
 	digitalWrite(dirPin_l1,LOW);

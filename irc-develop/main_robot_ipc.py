@@ -1,14 +1,13 @@
-
 #import matplotlib.pyplot as plt
 import networkx as nx
 import os
 import math
 import time
-#import cv2
-#from qr import *
+import cv2
+from qr import *
 
 #from qr import *
-#from box import *
+from box import *
 import RPi.GPIO as rpi
 from Node import Node
 import subprocess
@@ -25,7 +24,7 @@ class IRC:
         self.rightw = float(os.environ.get("rightw"))
         self.frontw = float(os.environ.get("frontw"))
 
-#        self.vidcap = cv2.VideoCapture(0)
+        self.vidcap = cv2.VideoCapture(0)
         self.boxlb = [False, False]
         self.boxdb = [False, False]
         self.boxp = [False, False]
@@ -34,6 +33,7 @@ class IRC:
 
         self.map = nx.Graph()
         self.last_node = -1
+        #print(self.getRobotX(), self.getRobotY())
         self.map.add_node(-1, node=Node(self.getRobotX(), self.getRobotY(), -1, -1, -1, -1, 1))
 
     def controlInput(self,control):
@@ -81,24 +81,24 @@ class IRC:
         self.theta = (self.theta + 1) % 4
 #        while not self.getTheta() == self.getTheta():
         self.controlInput(1)
-        time.sleep(5)
-        rpi.cleanup()
+        #time.sleep(5)
+        #rpi.cleanup()
     
     def goleft(self):
         self.theta = (self.theta + 1) % 4
 #        while not self.theta == self.getTheta():
             # robotgoleft()
         self.controlInput(1)
-        rpi.cleanup()
-        time.sleep(5)
+        #rpi.cleanup()
+        #time.sleep(5)
         self.forward()
         # self.forward()
 
     def forward(self):
         # robotMoveForward()
         self.controlInput(0)
-        rpi.cleanup()
-        time.sleep(5)
+        #rpi.cleanup()
+        #time.sleep(5)
         #self.stop()        	
 
     def goright(self):
@@ -108,8 +108,8 @@ class IRC:
         #while not self.theta == self.getTheta():
             # robotgoright()
         self.controlInput(3)
-        rpi.cleanup()
-        time.sleep(5)
+        #rpi.cleanup()
+        #time.sleep(5)
         self.forward()
         # self.forward()
 
@@ -119,12 +119,12 @@ class IRC:
             self.theta = 3
         #while not self.theta == self.getTheta():
         self.controlInput(3)
-        time.sleep(5)
-        rpi.cleanup()   
+        #time.sleep(5)
+        #rpi.cleanup()   
 
     def stop(self):
         self.controlInput(4)
-        rpi.cleanup()
+        #rpi.cleanup()
 
     def backTrace(self):
         self.turnright()
@@ -299,6 +299,8 @@ class IRC:
         flag = 0
         last = self.map.node[self.last_node]['node']
         leftw, rightw, frontw = -1, -1, -1
+        print("Junction called")
+#        print(self.getRight())
         if self.getLeft() >= self.leftw:
             leftw = 0
         if self.getRight() >= self.rightw:
@@ -416,6 +418,7 @@ class IRC:
 
     def getColour(self, image):
         data = decode(image)
+        print("Get Colour")
         if data!=None:
             print(data)
             return "qr"
@@ -428,7 +431,7 @@ class IRC:
     def check(self):
         res, image = self.vidcap.read()
         colour = self.getColour(image)
-
+        #print(image, res)
         while colour == "pink":
             self.stop()
             self.boxp = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
@@ -481,7 +484,15 @@ if __name__ == "__main__":
    #a = subprocess.call("./maze_ipc") 
    #print(a)
    start = IRC()
-   #print(start.getFront())
+   print(start.getLeft())
+   print(start.getFront())
+   print(start.getRight())
+   #while True:
+    #print(start.getLeft())
+    #print(start.getFront())
+    #print(start.getRight())
+   #time.sleep(1)
+   
    #start.turnleft()
    #time.sleep(1)
    #start.stop()
@@ -509,8 +520,9 @@ if __name__ == "__main__":
               start.move()
           nx.write_gpickle(start.map, "test.gpickle")
 #          start.draw_graph(start.map)
-#          start.check()
+
+          start.check()
 #          print(start.getLeft(), start.getFront(), start.getRight(), start.getTheta())
-          start.print()
+    #      start.print()
    finally:
        proc.terminate()
