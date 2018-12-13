@@ -8,7 +8,7 @@ GPIO.setmode(GPIO.BCM)
 gamepad = InputDevice('/dev/input/event0')
 pwm = Adafruit_PCA9685.PCA9685()
 
-angle1 = angle2 = angle3 = 400
+angle1 = angle2 = angle3 = 500
 speed = 50           # pwm to motors
 steps = 25           # servo steps  = 25 * ( 180 / 500 ) 
 stepper_steps = 25   # stepper steps = ( 360 / 200 ) * 25
@@ -41,11 +41,11 @@ GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
 
 pwm.set_pwm(2, 0, 500 )
-time.sleep(2)
+time.sleep(1)
 pwm.set_pwm(3, 0, 500 )
-time.sleep(2)
+time.sleep(1)
 pwm.set_pwm(4, 0, 500 )
-time.sleep(2)
+time.sleep(1)
 
 def drive():
 
@@ -127,7 +127,7 @@ def arm():
                 if angle1>=650:
                     angle1 = 650
                 pwm.set_pwm(2, 0, angle1)
-                time.sleep(1)
+                time.sleep(0.1)
 
         if event.code == 306:
             if event.value == 1:
@@ -135,7 +135,7 @@ def arm():
                 if angle1<150:
                     angle1 = 150
                 pwm.set_pwm(2, 0, angle1)
-                time.sleep(1)
+                time.sleep(0.1)
         
         if event.code == 307:
 
@@ -144,7 +144,7 @@ def arm():
                	if angle2>=650:
                     angle2 = 650
                 pwm.set_pwm(3, 0, angle2)
-                time.sleep(1)
+                time.sleep(0.1)
                 print("lin2")
 
         if event.code == 305:
@@ -154,7 +154,7 @@ def arm():
                 if angle2<150:
                     angle2 = 150
                 pwm.set_pwm(3, 0, angle2)
-                time.sleep(1)
+                time.sleep(0.1)
                 print("link 2") 
         
         if event.code == 310:
@@ -164,7 +164,7 @@ def arm():
                 if angle1>=650:
                     angle3 = 650
                 pwm.set_pwm(4, 0, angle3)
-                time.sleep(1)
+                time.sleep(0.1)
                 print("base motor +")
         
         if event.code == 311:
@@ -174,7 +174,7 @@ def arm():
                 if angle3<150:
                     angle3 = 150
                 pwm.set_pwm(4, 0, angle3)
-                time.sleep(1)
+                time.sleep(0.1)
                 print("base motor -")
         
         if event.code == 309:
@@ -184,18 +184,18 @@ def arm():
     
                 for x in range(stepper_steps):
                     GPIO.output(STEP, GPIO.HIGH)
-                    sleep(delay)
+                    time.sleep(delay)
                     GPIO.output(STEP, GPIO.LOW)
-    
+                    time.sleep(delay)
         if event.code == 308:
             if event.value == 1:
                 GPIO.output(DIR, CCW)
 
                 for x in range(stepper_steps):
                     GPIO.output(STEP, GPIO.HIGH)
-                    sleep(delay)
+                    time.sleep(delay)
                     GPIO.output(STEP, GPIO.LOW)
-                    sleep(delay)
+                    time.sleep(delay)
 
         if event.code == 313:
             
