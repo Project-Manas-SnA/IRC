@@ -18,7 +18,7 @@ Motor = True
 
 GPIO.setwarnings(False)
 
-SuctionPin = 21 
+SuctionPin = 16 
 directionLeft = 17              #physical 11
 directionRight = 27             #physical 13
 GPIO.setup(directionLeft,GPIO.OUT)

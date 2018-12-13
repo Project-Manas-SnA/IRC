@@ -4,11 +4,11 @@ import networkx as nx
 import os
 import math
 import time
-#import cv2
-#from qr import *
+import cv2
+from qr import *
 
-#from qr import *
-#from box import *
+from qr import *
+from box import *
 import RPi.GPIO as rpi
 from Node import Node
 import subprocess
@@ -25,7 +25,7 @@ class IRC:
         self.rightw = float(os.environ.get("rightw"))
         self.frontw = float(os.environ.get("frontw"))
 
-#        self.vidcap = cv2.VideoCapture(0)
+        self.vidcap = cv2.VideoCapture(0)
         self.boxlb = [False, False]
         self.boxdb = [False, False]
         self.boxp = [False, False]
