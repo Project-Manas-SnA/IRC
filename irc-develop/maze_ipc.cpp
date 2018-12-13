@@ -18,10 +18,10 @@ using namespace std;
 
 /*Define*/
 
-#define TRIG_FRONT 30  //27
-#define ECHO_FRONT 21  //29
-#define TRIG_RIGHT 22  //31
-#define ECHO_RIGHT 23  //33
+#define TRIG_FRONT 22  //27
+#define ECHO_FRONT 23  //29
+#define TRIG_RIGHT 30  //31
+#define ECHO_RIGHT 21  //33
 #define TRIG_LEFT  24  //35
 #define ECHO_LEFT  25  //37
 
@@ -180,9 +180,9 @@ void adjust(){
 }
 
 void backward(){
-	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,HIGH);
-	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
@@ -193,9 +193,9 @@ void backward(){
 }
 
 void forward(){
-	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_l1,LOW); 
 	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,115);
 	softPwmWrite(pwmPinR,150);
@@ -207,9 +207,9 @@ void forward(){
 }
 
 void rightTurn(){
-	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
 	softPwmWrite(pwmPinL,100);
 	softPwmWrite(pwmPinR,75);
@@ -226,9 +226,9 @@ void rightTurn(){
 }
 
 void leftTurn(){
-	digitalWrite(dirPin_l1,HIGH);
-	digitalWrite(dirPin_r1,HIGH);
-	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_l1,LOW); 
+	digitalWrite(dirPin_r1,HIGH);  
+	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,100);
 	softPwmWrite(pwmPinR,75);
