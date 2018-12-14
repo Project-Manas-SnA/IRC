@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include"wiringPi.h"
 #include<stdio.h>
@@ -182,9 +181,9 @@ void adjust(){
 }
 
 void backward(){
-	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,HIGH);
-	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
@@ -195,35 +194,34 @@ void backward(){
 }
 
 void forward(){
-	digitalWrite(dirPin_l1,HIGH);
-	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,LOW);
-	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,120);
-	softPwmWrite(pwmPinR,155);
-	while(pos_l<850){
-	softPwmWrite(pwmPinL,120);
-	softPwmWrite(pwmPinR, 155);
-	}
-	stop();
-	usleep(200000);
-	cout<<pos_l<<"\n";
-	updateCoOrdinate(1);
-}
-
-void rightTurn(){
 	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,LOW);
 	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,100);
-	softPwmWrite(pwmPinR,75);
-	while(pos_l<530){continue;}
+	softPwmWrite(pwmPinL,135);
+	softPwmWrite(pwmPinR,146);
+	while(pos_l<470){continue;}
+	//softPwmWrite(pwmPinR,75);
+	stop();
+	usleep(100000);
+	stop();
+//	cout<<pos_l<<"\n";
+	updateCoOrdinate(1);
+}
+
+void rightTurn(){
+	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_r1,LOW);
+	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_r2,HIGH);
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+	while(pos_l<650){continue;}
 	stop();
 	stop();
 	rotateAxis(1);
-	usleep(2000000);
-	cout<<pos_l<<"\n";
+	usleep(1000000);
+//	cout<<pos_l<<"\n";
 	distance();
 	Direction = --Direction ;
 	if (Direction == -1)
@@ -231,21 +229,44 @@ void rightTurn(){
 }
 
 void leftTurn(){
-	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,HIGH);
-	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,100);
-	softPwmWrite(pwmPinR,75);
-	while(pos_l<500){continue;}
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+	while(pos_l<650){continue;}
 	stop();
 	rotateAxis(-1);
-	usleep(200000);
-	cout<<pos_l<<"\n";
+	usleep(100000);
+//	cout<<pos_l<<"\n";
 	distance();
 	Direction = (++Direction) % 4;
 }
 
+
+
+void setup(){
+	wiringPiSetup();
+	pinMode(A_Left, INPUT);
+	pinMode(dirPin_r1, OUTPUT);
+	pinMode(dirPin_l1, OUTPUT);
+	pinMode(dirPin_r2, OUTPUT);
+	pinMode(dirPin_l2, OUTPUT);
+	pullUpDnControl(A_Left, PUD_UP);
+	wiringPiISR(A_Left,INT_EDGE_BOTH,Enc_A_Left);
+	softPwmCreate(pwmPinR, 0, 225);
+	softPwmCreate(pwmPinL, 0, 225);
+	pinMode(TRIG_FRONT, OUTPUT);
+	pinMode(ECHO_FRONT, INPUT);
+	pinMode(TRIG_RIGHT, OUTPUT);
+	pinMode(ECHO_RIGHT, INPUT);
+	pinMode(TRIG_LEFT, OUTPUT);
+	pinMode(ECHO_LEFT, INPUT);
+	digitalWrite(TRIG_FRONT, LOW);
+	digitalWrite(TRIG_LEFT, LOW);
+	digitalWrite(TRIG_RIGHT, LOW);
+}
 
 
 void setup(){
