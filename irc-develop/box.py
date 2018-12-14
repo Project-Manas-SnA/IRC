@@ -5,13 +5,13 @@ import numpy as np
 def detectColour(image):
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-    blue = cv2.inRange(hsv,(80, 80,160),(255,255,255))
+    blue = cv2.inRange(hsv,(90,80,160),(200,255,255))
 
     red_l = cv2.inRange(hsv,(0,100,120),(10,255,255))
     red_u = cv2.inRange(hsv,(160,100,100),(179,255,255))
     red = red_l + red_u
 
-    green = cv2.inRange(hsv,(30,100,10),(90,255,255))
+    green = cv2.inRange(hsv,(45,40,30),(80,255,255))
 
     cv2.imshow("blue",blue)
     cv2.imshow("green",green)
@@ -28,7 +28,7 @@ def detectColour(image):
         return "blue"
     elif (pixels / 100.0) * 30 <= red_px:
         return "red"
-    elif (pixels / 100.0) + 30 <= green_px:
+    elif (pixels / 100.0) * 30 <= green_px:
         return "green"
 
     return None

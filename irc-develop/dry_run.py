@@ -25,23 +25,16 @@ class IRC:
         self.frontw = float(os.environ.get("frontw"))
 
         self.vidcap = cv2.VideoCapture(0)
+        self.boxlb = [False, False, 0, 0, 0]
+        self.boxdb = [False, False, 0, 0, 0]
+        self.boxp = [False, False, 0, 0, 0]
+        self.boxqr3 = [False, False, 0, 0, 0]
+        self.boxqr5 = [False, False, 0, 0, 0]
 
-        file = open("flags.txt", 'r')
-        self.boxlb = list(file.readline().split())
-        self.boxlb = [bool(self.boxlb[0]), False, float(self.boxlb[2]), float(self.boxlb[3]), float(self.boxlb[4])]
-        self.boxdb = list(file.readline().split())
-        self.boxdb = [bool(self.boxdb[0]), False, float(self.boxdb[2]), float(self.boxdb[3]), float(self.boxdb[4])]
-        self.boxp = list(file.readline().split())
-        self.boxp = [bool(self.boxp[0]), False, float(self.boxp[2]), float(self.boxp[3]), float(self.boxp[4])]
-        self.boxqr3 = list(file.readline().split())
-        self.boxqr3 = [bool(self.boxqr3[0]), False, float(self.boxqr3[2]), float(self.boxqr3[3]), float(self.boxqr3[4])]
-        self.boxqr5 = list(file.readline().split())
-        self.boxqr5 = [bool(self.boxqr5[0]), False, float(self.boxqr5[2]), float(self.boxqr5[3]), float(self.boxqr5[4])]
-
-        self.map = nx.read_gpickle("test.gpickle")
+        self.map = nx.Graph()
         self.last_node = -1
         #print(self.getRobotX(), self.getRobotY())
-        # self.map.add_node(-1, node=Node(self.getRobotX(), self.getRobotY(), -1, -1, -1, -1, 1))
+        self.map.add_node(-1, node=Node(self.getRobotX(), self.getRobotY(), -1, -1, -1, -1, 1))
 
     def controlInput(self,control):
         proc.stdin.write(bytes(str(control) + "\n",'utf-8'))
@@ -438,20 +431,21 @@ class IRC:
     def check(self):
         res, image = self.vidcap.read()
         colour = self.getColour(image)
-        bluecheck = self.boxlb[1]
         qrcheck = self.boxqr3[1]
         #print(image, res)
-        while colour == "pink":
+        while colour == "red":
             self.stop()
             self.boxp = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
             res, image = self.vidcap.read()
             colour = self.getColour(image)
         while colour == "blue":
             self.stop()
-            if bluecheck:
-                self.boxdb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
-            else:
-                self.boxlb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
+            self.boxlb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
+            res, image = self.vidcap.read()
+            colour = self.getColour(image)
+        while colour == "green":
+            self.stop()
+            self.boxdb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
             res, image = self.vidcap.read()
             colour = self.getColour(image)
         while colour == "qr":
@@ -487,28 +481,26 @@ if __name__ == "__main__":
        while True:
           time.sleep(1)
           start.junction()
-          if start.boxlb[0] and not start.boxlb[1]:
-               start.goal(start.boxlb[2], start.boxlb[3], start.boxlb[4])
-               start.boxlb[1] = True
-          elif start.boxp[0] and not start.boxp[1]:
-               start.goal(start.boxp[2], start.boxp[3], start.boxp[4])
-               start.boxp[1] = True
-          elif start.boxqr3[0] and not start.boxqr3[1] and start.boxp[1] and start.boxlb[1]:
+          if start.boxqr3[0] and not start.boxqr3[1] and start.boxp[1] and start.boxlb[1]:
               start.goal(start.boxqr3[2], start.boxqr3[3], start.boxqr3[4])
               start.boxqr3[1] = True
-          elif start.boxqr3[1] and start.boxdb[0] and not start.boxdb[1]:
-               start.goal(start.boxdb[2], start.boxdb[3], start.boxdb[4])
-               start.boxdb[1] = True
           elif start.boxqr5[0] and not start.boxqr5[1] and start.boxdb[1]:
               start.goal(start.boxqr5[2], start.boxqr5[3], start.boxqr5[4])
               start.boxqr5[1] = True
           else:
               start.move()
-          # nx.write_gpickle(start.map, "test.gpickle")
-#          start.draw_graph(start.map)
-
           start.check()
-#          print(start.getLeft(), start.getFront(), start.getRight(), start.getTheta())
-    #      start.print()
    finally:
-       proc.terminate() 
+      nx.write_gpickle(start.map, "test.gpickle")
+      file = open("flags.txt", 'w')
+      file.writelines([str(x)+" " for x in start.boxlb])
+      file.write("\n")
+      file.writelines([str(x)+" " for x in start.boxdb])
+      file.write("\n")
+      file.writelines([str(x)+" " for x in start.boxp])
+      file.write("\n")
+      file.writelines([str(x)+" " for x in start.boxqr3])
+      file.write("\n")
+      file.writelines([str(x)+" " for x in start.boxqr5])
+      file.write("\n")
+      proc.terminate() 
