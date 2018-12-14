@@ -5,7 +5,7 @@ import numpy as np
 def detectColour(image):
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-    blue = cv2.inRange(hsv,(90,80,160),(200,255,255))
+    blue = cv2.inRange(hsv,(90,180,160),(200,255,255))
 
     red_l = cv2.inRange(hsv,(0,100,120),(10,255,255))
     red_u = cv2.inRange(hsv,(160,100,100),(179,255,255))
