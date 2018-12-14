@@ -431,20 +431,21 @@ class IRC:
     def check(self):
         res, image = self.vidcap.read()
         colour = self.getColour(image)
-        bluecheck = self.boxlb[1]
         qrcheck = self.boxqr3[1]
         #print(image, res)
-        while colour == "pink":
+        while colour == "red":
             self.stop()
             self.boxp = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
             res, image = self.vidcap.read()
             colour = self.getColour(image)
         while colour == "blue":
             self.stop()
-            if bluecheck:
-                self.boxdb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
-            else:
-                self.boxlb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
+            self.boxlb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
+            res, image = self.vidcap.read()
+            colour = self.getColour(image)
+        while colour == "green":
+            self.stop()
+            self.boxdb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
             res, image = self.vidcap.read()
             colour = self.getColour(image)
         while colour == "qr":
