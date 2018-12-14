@@ -182,9 +182,9 @@ void adjust(){
 }
 
 void backward(){
-	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,HIGH);
-	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,LOW);
 	softPwmWrite(pwmPinL,150);
 	softPwmWrite(pwmPinR,150);
@@ -195,34 +195,33 @@ void backward(){
 }
 
 void forward(){
-	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,120);
-	softPwmWrite(pwmPinR,155);
-	while(pos_l<850){
-	softPwmWrite(pwmPinL,120);
-	softPwmWrite(pwmPinR, 155);
-	}
+	softPwmWrite(pwmPinL,135);
+	softPwmWrite(pwmPinR,146);
+	while(pos_l<470){continue;}
+	//softPwmWrite(pwmPinR,75);
 	stop();
-	usleep(200000);
+	usleep(100000);
+	stop();
 	cout<<pos_l<<"\n";
 	updateCoOrdinate(1);
 }
 
 void rightTurn(){
-	digitalWrite(dirPin_l1,LOW);
+	digitalWrite(dirPin_l1,HIGH);
 	digitalWrite(dirPin_r1,LOW);
-	digitalWrite(dirPin_l2,HIGH);
+	digitalWrite(dirPin_l2,LOW);
 	digitalWrite(dirPin_r2,HIGH);
-	softPwmWrite(pwmPinL,100);
-	softPwmWrite(pwmPinR,75);
-	while(pos_l<530){continue;}
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+	while(pos_l<650){continue;}
 	stop();
 	stop();
 	rotateAxis(1);
-	usleep(2000000);
+	usleep(1000000);
 	cout<<pos_l<<"\n";
 	distance();
 	Direction = --Direction ;
@@ -231,16 +230,16 @@ void rightTurn(){
 }
 
 void leftTurn(){
-	digitalWrite(dirPin_l1,HIGH);
+	digitalWrite(dirPin_l1,LOW);
 	digitalWrite(dirPin_r1,HIGH);
-	digitalWrite(dirPin_l2,LOW);
+	digitalWrite(dirPin_l2,HIGH);
 	digitalWrite(dirPin_r2,LOW);
-	softPwmWrite(pwmPinL,100);
-	softPwmWrite(pwmPinR,75);
-	while(pos_l<500){continue;}
+	softPwmWrite(pwmPinL,50);
+	softPwmWrite(pwmPinR,50);
+	while(pos_l<650){continue;}
 	stop();
 	rotateAxis(-1);
-	usleep(200000);
+	usleep(100000);
 	cout<<pos_l<<"\n";
 	distance();
 	Direction = (++Direction) % 4;
@@ -273,16 +272,18 @@ void setup(){
 int main(){
 	setup();
 //	forward();
+//	usleep(1000000);
 //	forward();
 //	forward();
 //	forward();
-//	leftTurn();
-//	rightTurn();
+	rightTurn();
+	usleep(1000000);
+	leftTurn();
 //	adjust();
-	cout<<"\n\n";
-	cout<<ultrasonicRight()<<"\n";
-	cout<<ultrasonicLeft()<<"\n";
-	cout<<ultrasonicFront()<<"\n";
+//	cout<<"\n\n";
+//	cout<<ultrasonicRight()<<"\n";
+//	cout<<ultrasonicLeft()<<"\n";
+//	cout<<ultrasonicFront()<<"\n";
 	cout<<distx<<" "<<disty<<"\n";
 	return 0;
 }
