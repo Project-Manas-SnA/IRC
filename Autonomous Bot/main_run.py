@@ -28,15 +28,15 @@ class IRC:
 
         file = open("flags.txt", 'r')
         self.boxlb = list(file.readline().split())
-        self.boxlb = [False, bool(self.boxlb[1]), float(self.boxlb[2]), float(self.boxlb[3]), float(self.boxlb[4])]
+        self.boxlb = [bool(self.boxlb[0]), False, float(self.boxlb[2]), float(self.boxlb[3]), float(self.boxlb[4])]
         self.boxdb = list(file.readline().split())
-        self.boxdb = [False, bool(self.boxdb[1]), float(self.boxdb[2]), float(self.boxdb[3]), float(self.boxdb[4])]
+        self.boxdb = [bool(self.boxdb[0]), False, float(self.boxdb[2]), float(self.boxdb[3]), float(self.boxdb[4])]
         self.boxp = list(file.readline().split())
-        self.boxp = [False, bool(self.boxp[1]), float(self.boxp[2]), float(self.boxp[3]), float(self.boxp[4])]
+        self.boxp = [bool(self.boxp[0]), False, float(self.boxp[2]), float(self.boxp[3]), float(self.boxp[4])]
         self.boxqr3 = list(file.readline().split())
-        self.boxqr3 = [False, bool(self.boxqr3[1]), float(self.boxqr3[2]), float(self.boxqr3[3]), float(self.boxqr3[4])]
+        self.boxqr3 = [bool(self.boxqr3[0]), False, float(self.boxqr3[2]), float(self.boxqr3[3]), float(self.boxqr3[4])]
         self.boxqr5 = list(file.readline().split())
-        self.boxqr5 = [False, bool(self.boxqr5[1]), float(self.boxqr5[2]), float(self.boxqr5[3]), float(self.boxqr5[4])]
+        self.boxqr5 = [bool(self.boxqr5[0]), False, float(self.boxqr5[2]), float(self.boxqr5[3]), float(self.boxqr5[4])]
 
         self.map = nx.read_gpickle("test.gpickle")
         self.last_node = -1
@@ -438,20 +438,19 @@ class IRC:
     def check(self):
         res, image = self.vidcap.read()
         colour = self.getColour(image)
+        bluecheck = self.boxlb[1]
         #print(image, res)
         while colour == "pink":
             self.stop()
             self.boxp = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
             res, image = self.vidcap.read()
             colour = self.getColour(image)
-        while colour == "lightblue":
+        while colour == "blue":
             self.stop()
-            self.boxlb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
-            res, image = self.vidcap.read()
-            colour = self.getColour(image)
-        while colour == "darkblue":
-            self.stop()
-            self.boxdb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
+            if bluecheck:
+                self.boxdb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
+            else:
+                self.boxlb = [True, True, self.getRobotX(), self.getRobotY(), self.getTheta()]
             res, image = self.vidcap.read()
             colour = self.getColour(image)
         while colour == "qr":
@@ -493,7 +492,7 @@ if __name__ == "__main__":
           	start.goal(start.boxp[2], start.boxp[3], start.boxp[4])
           elif start.boxqr3[0] and not start.boxqr3[1] and start.boxp[1] and start.boxlb[1]:
               start.goal(start.boxqr3[2], start.boxqr3[3], start.boxqr3[4])
-          elif start.boxdb[0] and not start.boxdb[1]:
+          elif start.boxqr3[1] and start.boxdb[0] and not start.boxdb[1]:
           	   start.goal(start.boxdb[2], start.boxdb[3], start.boxdb[4])
           elif start.boxqr5[0] and not start.boxqr5[1] and start.boxdb[1]:
               start.goal(start.boxqr5[2], start.boxqr5[3], start.boxqr5[4])
