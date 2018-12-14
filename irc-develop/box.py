@@ -28,7 +28,7 @@ def detectColour(image):
         return "blue"
     elif (pixels / 100.0) * 30 <= red_px:
         return "red"
-    elif (pixels / 100.0) + 30 <= green_px:
+    elif (pixels / 100.0) * 30 <= green_px:
         return "green"
 
     return None
