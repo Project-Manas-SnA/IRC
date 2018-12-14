@@ -439,6 +439,7 @@ class IRC:
         res, image = self.vidcap.read()
         colour = self.getColour(image)
         bluecheck = self.boxlb[1]
+        qrcheck = self.boxqr3[1]
         #print(image, res)
         while colour == "pink":
             self.stop()
@@ -454,7 +455,7 @@ class IRC:
             res, image = self.vidcap.read()
             colour = self.getColour(image)
         while colour == "qr":
-            if self.boxqr3[1]:
+            if qrcheck:
                 if self.boxdb[1]:
                     while colour == "qr":
                         self.stop()
@@ -487,15 +488,20 @@ if __name__ == "__main__":
           time.sleep(1)
           start.junction()
           if start.boxlb[0] and not start.boxlb[1]:
-          	start.goal(start.boxlb[2], start.boxlb[3], start.boxlb[4])
+               start.goal(start.boxlb[2], start.boxlb[3], start.boxlb[4])
+               start.boxlb[1] = True
           elif start.boxp[0] and not start.boxp[1]:
-          	start.goal(start.boxp[2], start.boxp[3], start.boxp[4])
+               start.goal(start.boxp[2], start.boxp[3], start.boxp[4])
+               start.boxp[1] = True
           elif start.boxqr3[0] and not start.boxqr3[1] and start.boxp[1] and start.boxlb[1]:
               start.goal(start.boxqr3[2], start.boxqr3[3], start.boxqr3[4])
+              start.boxqr3[1] = True
           elif start.boxqr3[1] and start.boxdb[0] and not start.boxdb[1]:
-          	   start.goal(start.boxdb[2], start.boxdb[3], start.boxdb[4])
+               start.goal(start.boxdb[2], start.boxdb[3], start.boxdb[4])
+               start.boxdb[1] = True
           elif start.boxqr5[0] and not start.boxqr5[1] and start.boxdb[1]:
               start.goal(start.boxqr5[2], start.boxqr5[3], start.boxqr5[4])
+              start.boxqr5[1] = True
           else:
               start.move()
           # nx.write_gpickle(start.map, "test.gpickle")

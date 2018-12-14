@@ -432,6 +432,7 @@ class IRC:
         res, image = self.vidcap.read()
         colour = self.getColour(image)
         bluecheck = self.boxlb[1]
+        qrcheck = self.boxqr3[1]
         #print(image, res)
         while colour == "pink":
             self.stop()
@@ -447,7 +448,7 @@ class IRC:
             res, image = self.vidcap.read()
             colour = self.getColour(image)
         while colour == "qr":
-            if self.boxqr3[1]:
+            if qrcheck:
                 if self.boxdb[1]:
                     while colour == "qr":
                         self.stop()
@@ -481,8 +482,10 @@ if __name__ == "__main__":
           start.junction()
           if start.boxqr3[0] and not start.boxqr3[1] and start.boxp[1] and start.boxlb[1]:
               start.goal(start.boxqr3[2], start.boxqr3[3], start.boxqr3[4])
+              start.boxqr3[1] = True
           elif start.boxqr5[0] and not start.boxqr5[1] and start.boxdb[1]:
               start.goal(start.boxqr5[2], start.boxqr5[3], start.boxqr5[4])
+              start.boxqr5[1] = True
           else:
               start.move()
           start.check()
