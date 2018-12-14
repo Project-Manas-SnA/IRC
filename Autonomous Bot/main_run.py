@@ -28,15 +28,15 @@ class IRC:
 
         file = open("flags.txt", 'r')
         self.boxlb = list(file.readline().split())
-        self.boxlb = [bool(self.boxlb[0]), False, float(self.boxlb[2]), float(self.boxlb[3]), float(self.boxlb[4])]
+        self.boxlb = [self.boxlb[0] == 'True', False, float(self.boxlb[2]), float(self.boxlb[3]), float(self.boxlb[4])]
         self.boxdb = list(file.readline().split())
-        self.boxdb = [bool(self.boxdb[0]), False, float(self.boxdb[2]), float(self.boxdb[3]), float(self.boxdb[4])]
+        self.boxdb = [self.boxdb[0] == 'True', False, float(self.boxdb[2]), float(self.boxdb[3]), float(self.boxdb[4])]
         self.boxp = list(file.readline().split())
-        self.boxp = [bool(self.boxp[0]), False, float(self.boxp[2]), float(self.boxp[3]), float(self.boxp[4])]
+        self.boxp = [self.boxp[0] == 'True', False, float(self.boxp[2]), float(self.boxp[3]), float(self.boxp[4])]
         self.boxqr3 = list(file.readline().split())
-        self.boxqr3 = [bool(self.boxqr3[0]), False, float(self.boxqr3[2]), float(self.boxqr3[3]), float(self.boxqr3[4])]
+        self.boxqr3 = [self.boxqr3[0] == 'True', False, float(self.boxqr3[2]), float(self.boxqr3[3]), float(self.boxqr3[4])]
         self.boxqr5 = list(file.readline().split())
-        self.boxqr5 = [bool(self.boxqr5[0]), False, float(self.boxqr5[2]), float(self.boxqr5[3]), float(self.boxqr5[4])]
+        self.boxqr5 = [self.boxqr5[0] == 'True', False, float(self.boxqr5[2]), float(self.boxqr5[3]), float(self.boxqr5[4])]
 
         self.map = nx.read_gpickle("test.gpickle")
         self.last_node = -1
